@@ -44,6 +44,8 @@ int main()
     cout << "brand : " << myCar3->brand << endl;
     cout << "color : " << myCar3->color << endl;
 
+    delete myCar2;
+    delete myCar3;
 }
 
 
