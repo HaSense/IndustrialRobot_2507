@@ -16,6 +16,14 @@ public:
         this->x = initX;
         this->y = initY;
     }
+    //복사 생성자
+    Point(const Point& pt)
+    {
+        cout << "복사 생성자 호출됨" << endl;
+        x = pt.x;
+        y = pt.y;
+    }
+
     //멤버 함수
     void Print()
     {
@@ -39,7 +47,19 @@ int main()
     pt4->Print();
     delete pt4;
 
+    
+    Point pt5;
+    pt5.Print();
+
+    Point pt7;
+    pt7 = pt5;  //객체끼리 대입 연산
+    pt7.Print();
+
+    Point pt8(pt5); //복사 생성자
+    pt8.Print();
 }
+
+
 
 
 
