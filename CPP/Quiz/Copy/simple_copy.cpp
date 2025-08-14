@@ -1,11 +1,13 @@
 // simple_copy.cpp
 #include <iostream>
 #include <filesystem>
+//#include <experimental/filesystem> //vc++에서 사용시
 
 int main(int argc, char* argv[]) {
     using namespace std;
     namespace fs = std::filesystem;
-
+    //namespace fs = std::experimental::filesystem; //vc++에서 사용시
+    
     if (argc < 3) {
         cerr << "사용법: " << argv[0] << " <원본파일> <대상파일>\n";
         return 1;
