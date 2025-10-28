@@ -6,6 +6,8 @@ Intel Virtualization Technology (VT-x)
 
 VT-d (입출력 가상화)
 
+
+
 Secure Boot → Enabled 유지
 🧩 1. WSL2 설치
 # 1️⃣ WSL 및 Ubuntu 자동 설치
