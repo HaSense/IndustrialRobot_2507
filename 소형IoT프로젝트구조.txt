@@ -1,0 +1,15 @@
+┌────────────────────────────┐
+│     Web / Cloud Layer      │  ←  REST, gRPC, MQTT
+│  (Dashboard, MES, AI, DB)  │
+└────────────▲───────────────┘
+             │ HTTP/gRPC
+┌────────────┴───────────────┐
+│   Edge Gateway / Agent     │  ← Python, Go, Node, Rust
+│ (API서버·데이터 수집·MQTT)│
+└────────────▲───────────────┘
+             │ Shared Memory / Pipe / REST Local
+┌────────────┴───────────────┐
+│     Device Core (C/C++)    │  ←  핵심 알고리즘, 제어로직
+│  (센서, 로봇, 제어기 등)  │
+└────────────────────────────┘
+
