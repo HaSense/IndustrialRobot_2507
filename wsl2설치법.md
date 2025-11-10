@@ -57,3 +57,7 @@ wsl
 
 # Ubuntu 터미널에서 VS Code 실행
 code .
+
+# 배포판 삭제방법 
+
+wsl --unregister Ubuntu
