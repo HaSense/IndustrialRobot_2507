@@ -18,15 +18,18 @@ wsl --list --online
 
 # 3️⃣ 특정 Ubuntu 버전 선택 (예: Ubuntu 24.04)
 wsl --install Ubuntu
+
 ex) wsl --install -d Ubuntu-24.04
 
 # 4️⃣ 설치 확인
 wsl --list --verbose
+
 wsl -l -v
 
 
 # 5️⃣ Ubuntu 첫 실행 및 사용자 계정 설정 후 버전 확인
 wsl --version
+
 uname -a
 
 
