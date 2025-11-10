@@ -11,7 +11,7 @@ VT-d (입출력 가상화)
 Secure Boot → Enabled 유지
 🧩 1. WSL2 설치
 # 1️⃣ WSL 및 Ubuntu 자동 설치
-wsl --install
+wsl --install Ubuntu
 
 # 2️⃣ 설치 가능한 배포판 목록 확인
 wsl --list --online
