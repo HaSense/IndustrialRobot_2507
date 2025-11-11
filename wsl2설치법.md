@@ -61,3 +61,16 @@ code .
 # 배포판 삭제방법 
 
 wsl --unregister Ubuntu
+
+# Ubuntu 24.04 mirror 사이트 카카오로 변경 방법
+
+sudo nano /etc/apt/sources.list.d/ubuntu.sources
+
+> URIs: http://ftp.daumkakao.com/ubuntu/ 으로 변경
+
+# gcc, make, g++ 등 한번에 받기
+
+sudo apt install build-essential
+
+
+
