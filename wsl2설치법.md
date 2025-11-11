@@ -100,9 +100,11 @@ $> nano hello.c
 $> gcc hello.c
 
 $> gcc -c hello.c  
+
    오브젝트 파일이 만들어 진다.
 
 $> gcc -o hello hello.c
+
 hello.c 파일을 컴파일 하면서 바로 hello 실행 파일을 만든다.
 
 
