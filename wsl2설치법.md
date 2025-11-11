@@ -86,7 +86,24 @@ ls : 디렉토리 검색 옵션이 있습니다. -l -a
 
 mkdir : 디렉터리 만들기 (폴더 만든다)
 
+## 여러분이 만들어야 할 디렉터리 구조 /home/robot/work/basic/
 
+### 나노 에디터로 에디팅 하는 방법 
+$> cd /home/robot/work/basic/
+
+$> nano hello.c
+
+코딩을 하세요.
+
+### 컴파일 방법
+
+$> gcc hello.c
+
+$> gcc -c hello.c  
+   오브젝트 파일이 만들어 진다.
+
+$> gcc -o hello hello.c
+hello.c 파일을 컴파일 하면서 바로 hello 실행 파일을 만든다.
 
 
 
