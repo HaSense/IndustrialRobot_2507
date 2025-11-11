@@ -74,3 +74,14 @@ sudo apt install build-essential
 
 
 
+# 리눅스 명령어
+cd ~/  : 여러분 계정의 Home 디렉토리로 가는 명령어
+
+pwd : 현재 폴더의 위치를 알수 있는 명령어
+
+ls : 디렉토리 검색 옵션이 있습니다. -l -a
+
+
+
+
+
