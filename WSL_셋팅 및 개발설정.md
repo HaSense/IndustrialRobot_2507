@@ -119,7 +119,7 @@ sudo apt install build-essential
 | sudo apt update | 저장소 갱신 (카카오 미러 반영) |
 | cd ~/ | 홈 디렉터리 이동 |
 | pwd | 현재 경로 확인 |
-| ls | ls -l | ls -a | 디렉터리 목록 보기 |
+| ls -al | 디렉터리 목록 보기 |
 | mkdir | 새 디렉터리 생성 |
 
 ---
