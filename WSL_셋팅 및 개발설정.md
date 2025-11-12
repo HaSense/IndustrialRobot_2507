@@ -54,9 +54,11 @@ wsl --set-default-version 2
 ## ⚙️ 2. Ubuntu 초기 설정
 
 Ubuntu 터미널에서 다음 명령 실행:
+build-essential은 우분투에서 c/c++ 개발도구 설치
+
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install build-essential curl git -y
+sudo apt install build-essential -y
 ```
 
 ---
