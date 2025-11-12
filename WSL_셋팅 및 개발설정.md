@@ -153,14 +153,23 @@ gcc -o hello hello.c       # 실행 파일 생성
 
 ---
 
-## Visual Studio Code
+## 🧩 Visual Studio Code
 
-홈페이지 : https://code.visualstudio.com/
+**홈페이지:** [https://code.visualstudio.com/](https://code.visualstudio.com/)
 
-Plug-in : 일반적으로 4번째 탭
-          1. Korean 랭귀지팩 - 영문이 편한 사람은 받지 마세요.
-          2. C/C++ , C/C++ Extension - Microsoft 제품을 받으세요.
-          3. WSL - wsl에 접속하기 위한 플러그인 입니다. wsl 플러그인도 Microsoft것을 받으세요.
+---
+
+### 🔌 Plug-in (일반적으로 4번째 탭)
+
+1. **Korean Language Pack**  
+   → 영문이 편한 분은 설치하지 않아도 됩니다.
+
+2. **C/C++**, **C/C++ Extension**  
+   → *Microsoft* 제품을 설치하세요.
+
+3. **WSL**  
+   → WSL에 접속하기 위한 플러그인입니다.  
+     이 역시 *Microsoft* 제품을 설치하세요
 
           
 
