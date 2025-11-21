@@ -3,7 +3,7 @@
 
 	
     "C++ main Auto Template": {
-        "prefix": "main",
+        "prefix": "start",
         "body": [
             "#include <iostream>",
             "#include <cstdlib>",
