@@ -6,6 +6,13 @@ using namespace std;
 class Circle
 {
 public:
+    //멤버 변수
+    int radius;
+    //생성자
+    Circle(int r){
+        radius = r;
+    }
+    //멤버 함수
     void draw() {
         cout << "원을 그리다." << endl;
     }
@@ -26,7 +33,7 @@ int main()
 
     //c++11 스마트포인터   <Class Type>
     unique_ptr<int> p3 = make_unique<int>(5);
-    std::unique_ptr<Circle> p4 = std::make_unique<Circle>();  
+    std::unique_ptr<Circle> p4 = std::make_unique<Circle>(10);  
     p4->draw();
 
     return 0;
