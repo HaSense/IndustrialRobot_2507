@@ -1,0 +1,21 @@
+{
+	//파일 --> 기본설정 --> 코드조각 구성 --> cpp.json
+
+	
+    "C++ main Auto Template": {
+        "prefix": "main",
+        "body": [
+            "#include <iostream>",
+            "#include <cstdlib>",
+            "using namespace std;",
+            "",
+            "int main()",
+            "{",
+            "    $0",
+            "    return 0;",
+            "}"
+        ],
+        "description": "main 입력 후 자동으로 C++ 기본 템플릿 생성"
+    }
+
+}
