@@ -35,9 +35,14 @@ int main()
     // list.push_back(new Hero());
     // list.push_back(new Knight());
     // list.push_back(new Wizard());
-    for(Hero* p : list){
-        p->attack();
-        delete p;
+    for(Hero* h : list){
+        h->attack();
+        delete h;
     }
+
+    // for(int i=0; i<3; i++){
+    //     list[i]->attack();
+    //     delete list[i];
+    // }
     return 0;
 }
