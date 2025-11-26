@@ -15,9 +15,9 @@ int main()
         list.push_back(name);
     }
 
-    sort(vec.begin(), vec.end());
+    sort(vec.begin(), vec.end()); //greater<>() 세번째 매개변수에 넣으면 내림차순
     //sort(list.begin(), list.end());
-    list.sort();//오름차순 list.sort(geater<string>())//내림차순
+    list.sort();//오름차순 list.sort(greater<string>())//내림차순
 
     cout << vec.at(vec.size()-1) << endl;
     cout << list.back() << endl;
