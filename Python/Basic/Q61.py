@@ -23,6 +23,6 @@ with open('student.csv', 'w') as file:
     file.write('id, name, math, english\n')
     for i in range(1000):
         name = random.choice(familyName) + random.choice(word) + random.choice(word)
-        math = random.randrange(00, 100)
+        math = random.randrange(0, 100)
         english = random.randrange(40, 100)
         file.write(f'{i+1}, {name}, {math}, {english}\n')
