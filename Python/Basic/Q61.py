@@ -20,6 +20,7 @@ familyName = list('김이박하최천방지마피')
 word = list('지현숙영성호동석원구자')
 
 with open('student.csv', 'w') as file:
+    file.write('id, name, math, english\n')
     for i in range(1000):
         name = random.choice(familyName) + random.choice(word) + random.choice(word)
         math = random.randrange(00, 100)
