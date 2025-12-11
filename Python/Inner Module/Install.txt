@@ -1,0 +1,6 @@
+#가상만들기 venv
+#1.설치  
+sudo apt install python3-venv
+
+#2.가상환경 구성
+$> python3 -m venv robot1
