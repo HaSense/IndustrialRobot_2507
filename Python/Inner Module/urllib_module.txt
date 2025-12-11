@@ -1,0 +1,7 @@
+urllib/
+ ├── __init__.py
+ ├── request.py
+ ├── parse.py
+ ├── error.py
+ ├── robotparser.py
+ └── response.py
