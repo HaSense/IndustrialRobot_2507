@@ -1,6 +1,25 @@
+파이썬 외부모듈을 받을 때 
+패키지 관리자 pip, pip3
+sudo apt install python3-pip
+#pip 업그레이드 명령어
+python3 -m pip install --upgrade pip
+
 #가상만들기 venv
 #1.설치  
 sudo apt install python3-venv
 
 #2.가상환경 구성
 $> python3 -m venv robot1
+
+#3. 가상환경 활성화
+$> source robot1/bin/activate
+
+#4. Flask 설치
+$> pip install flask
+
+
+
+
+# 가상환경 비활성화
+$> deactivate
+
