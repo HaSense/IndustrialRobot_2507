@@ -16,10 +16,5 @@ $> source robot1/bin/activate
 
 #4. Flask 설치
 $> pip install flask
-
-
-
-
-# 가상환경 비활성화
-$> deactivate
-
+#5. BeautifulSoup4 설치
+$> pip install beautifulsoup4
