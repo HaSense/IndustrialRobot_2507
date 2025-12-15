@@ -1,6 +1,6 @@
 import sqlite3
 
-path = '/mnt/c/Users/shhawork/Code/sql/sqlite/sample1/'
+path = '/mnt/c/Users/[UserID]/Code/sql/sqlite/sample1/'
 conn = sqlite3.connect("addressbook.db")
 cur = conn.cursor()
 
