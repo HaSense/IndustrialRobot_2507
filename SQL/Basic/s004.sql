@@ -78,5 +78,39 @@ INSERT INTO course (id, title, category, credit) VALUES
 (10, '산업공학 개론',       '이론',       2);
 
 
+ALTER TABLE student ADD COLUMN major_code TEXT;
+ALTER TABLE course  ADD COLUMN major_code TEXT;
+
+
+
+UPDATE student
+SET major_code =
+    CASE major
+        WHEN '컴퓨터공학' THEN 'CSE'
+        WHEN '전자공학'   THEN 'EEE'
+        WHEN '기계공학'   THEN 'ME'
+        WHEN '산업공학'   THEN 'IE'
+        ELSE 'GEN'
+END;
+
+
+UPDATE course
+SET major_code =
+    CASE
+        WHEN title IN ('C 프로그래밍','C++ 객체지향','Python 기초','자료구조') THEN 'CSE'
+        WHEN title IN ('임베디드 시스템') THEN 'EEE'
+        WHEN title IN ('ROS 입문') THEN 'ME'
+        WHEN title IN ('산업공학 개론') THEN 'IE'
+        WHEN title IN ('데이터베이스 기초','SQL 활용','머신러닝 기초') THEN 'CSE'
+        ELSE 'GEN'
+END;
+
+SELECT s.name, s.major, c.title, c.category
+FROM student s
+JOIN course c
+ON s.major_code = c.major_code
+ORDER BY s.id, c.id;
+
+
 
 
