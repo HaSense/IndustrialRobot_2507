@@ -58,7 +58,8 @@ build-essential은 우분투에서 c/c++ 개발도구 설치
 
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install build-essential -y
+sudo apt install build-essential gdb -y
+
 ```
 
 ---
