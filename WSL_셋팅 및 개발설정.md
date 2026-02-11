@@ -6,8 +6,8 @@
 
 WSL2를 사용하기 전에 BIOS에서 아래 항목을 **Enabled**로 설정하세요.
 
-- Intel Virtualization Technology (VT-x)
-- VT-d (입출력 가상화)
+- Intel Virtualization Technology (VT-x) --> CPU쪽 옵션에 해당 합니다. 없는 컴퓨터도 있지만 있으면 Enable 체크 되야 합니다.
+- VT-d (입출력 가상화) --> 기본 가상화 옵션입니다. 옵션이 하나만 있다면 현재 옵션이 Enable이 되어 있어야 합니다.
 - Secure Boot → Enabled 유지
 
 ---
