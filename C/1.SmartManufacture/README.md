@@ -11,3 +11,16 @@
 |     | `long long` | 8 bytes | 약 -9 × 10¹⁸ ~ 9 × 10¹⁸ |
 | **실수형** | `float` | 4 bytes | 유효숫자 6자리 |
 |     | `double` | 8 bytes | 유효숫자 15자리 |
+
+
+```
+//hello.c
+#include <stdio.h> //헤더, 라이브러리
+
+int main() 
+{
+    printf("Hello World~!\n");
+
+    return 0;
+}
+```
