@@ -13,7 +13,7 @@
 |     | `double` | 8 bytes | 유효숫자 15자리 |
 
 
-```
+```c
 //hello.c
 #include <stdio.h> //헤더, 라이브러리
 
