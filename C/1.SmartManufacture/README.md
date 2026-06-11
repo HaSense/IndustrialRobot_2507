@@ -12,7 +12,7 @@
 | **실수형** | `float` | 4 bytes | 유효숫자 6자리 |
 |     | `double` | 8 bytes | 유효숫자 15자리 |
 
-
+**Hello World 프로그램**
 ```c
 //hello.c
 #include <stdio.h> //헤더, 라이브러리
