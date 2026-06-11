@@ -24,3 +24,26 @@ int main()
     return 0;
 }
 ```
+
+```c 변수처리
+
+#include <stdio.h>
+
+int main()
+{	
+	//두 정수 더하여 결과를 출력하라.
+	//1.변수 
+	//해법 -> 알고리즘
+	int a = 10, b = 20; //변수선언
+	int result; //변수선언
+
+	//a = 10; //대입연산자
+	//b = 20;
+
+	result = a + b; //수식
+	printf("result : %d\n", result);
+
+	return 0;
+}
+
+```
