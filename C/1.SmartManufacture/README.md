@@ -25,7 +25,7 @@ int main()
 }
 ```
 
-** 변수처리 **
+**📄 main.c**
 ```c title="변수처리"
 
 #include <stdio.h>
