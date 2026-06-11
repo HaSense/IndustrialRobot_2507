@@ -1,0 +1,513 @@
+# C언어 조건문 (if, else, else if, switch)
+
+## 조건문이란?
+
+조건문은 특정 조건이 참(True)인지 거짓(False)인지 판단하여 프로그램의 실행 흐름을 결정하는 문법이다.
+
+스마트팩토리에서는 다음과 같은 상황에서 자주 사용된다.
+
+* 온도가 기준값 이상인지 검사
+* 제품이 정상인지 불량인지 판별
+* 설비 상태 확인
+* 메뉴 선택
+
+---
+
+# 1. if문
+
+## 기본 문법
+
+```c
+if(조건식)
+{
+    실행문;
+}
+```
+
+조건식이 참이면 실행문을 수행한다.
+
+---
+
+## 예제
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int temperature = 80;
+
+    if(temperature > 70)
+    {
+        printf("고온 상태입니다.\n");
+    }
+
+    return 0;
+}
+```
+
+실행 결과
+
+```text
+고온 상태입니다.
+```
+
+---
+
+## 스마트팩토리 예제
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int temperature;
+
+    printf("설비 온도 입력 : ");
+    scanf("%d", &temperature);
+
+    if(temperature >= 100)
+    {
+        printf("경고! 위험 온도 발생\n");
+    }
+
+    return 0;
+}
+```
+
+---
+
+# 2. if ~ else문
+
+## 기본 문법
+
+```c
+if(조건식)
+{
+    실행문1;
+}
+else
+{
+    실행문2;
+}
+```
+
+조건이 참이면 실행문1을 수행하고,
+거짓이면 실행문2를 수행한다.
+
+---
+
+## 예제
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int score;
+
+    printf("점수 입력 : ");
+    scanf("%d", &score);
+
+    if(score >= 60)
+    {
+        printf("합격\n");
+    }
+    else
+    {
+        printf("불합격\n");
+    }
+
+    return 0;
+}
+```
+
+---
+
+## 스마트팩토리 예제
+
+제품 검사 결과
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int result;
+
+    printf("검사 결과 입력 (1:정상, 0:불량) : ");
+    scanf("%d", &result);
+
+    if(result == 1)
+    {
+        printf("정상 제품\n");
+    }
+    else
+    {
+        printf("불량 제품\n");
+    }
+
+    return 0;
+}
+```
+
+---
+
+# 3. if ~ else if ~ else문
+
+## 기본 문법
+
+```c
+if(조건식1)
+{
+    실행문1;
+}
+else if(조건식2)
+{
+    실행문2;
+}
+else
+{
+    실행문3;
+}
+```
+
+여러 개의 조건을 순차적으로 검사한다.
+
+---
+
+## 예제
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int score;
+
+    printf("점수 입력 : ");
+    scanf("%d", &score);
+
+    if(score >= 90)
+    {
+        printf("A학점\n");
+    }
+    else if(score >= 80)
+    {
+        printf("B학점\n");
+    }
+    else if(score >= 70)
+    {
+        printf("C학점\n");
+    }
+    else
+    {
+        printf("재시험\n");
+    }
+
+    return 0;
+}
+```
+
+---
+
+## 스마트팩토리 예제
+
+온도 상태 분류
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int temp;
+
+    printf("온도 입력 : ");
+    scanf("%d", &temp);
+
+    if(temp >= 100)
+    {
+        printf("위험\n");
+    }
+    else if(temp >= 80)
+    {
+        printf("주의\n");
+    }
+    else
+    {
+        printf("정상\n");
+    }
+
+    return 0;
+}
+```
+
+---
+
+# 4. 중첩 if문
+
+if문 안에 if문을 사용하는 구조
+
+## 예제
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int temperature = 90;
+    int pressure = 40;
+
+    if(temperature > 80)
+    {
+        if(pressure > 50)
+        {
+            printf("설비 점검 필요\n");
+        }
+    }
+
+    return 0;
+}
+```
+
+---
+
+# 5. 논리 연산자
+
+복수의 조건을 결합할 때 사용한다.
+
+| 연산자 | 의미  |   |    |
+| --- | --- | - | -- |
+| &&  | AND |   |    |
+|     |     |   | OR |
+| !   | NOT |   |    |
+
+---
+
+## AND 연산자
+
+두 조건이 모두 참이어야 참
+
+```c
+if(temp > 80 && pressure > 50)
+{
+    printf("설비 이상\n");
+}
+```
+
+---
+
+## OR 연산자
+
+둘 중 하나만 참이어도 참
+
+```c
+if(temp > 80 || pressure > 50)
+{
+    printf("설비 점검\n");
+}
+```
+
+---
+
+## NOT 연산자
+
+참과 거짓을 반대로 변경
+
+```c
+if(!(temp > 80))
+{
+    printf("정상 범위\n");
+}
+```
+
+---
+
+# 6. switch문
+
+여러 개의 선택지 중 하나를 선택할 때 사용한다.
+
+---
+
+## 기본 문법
+
+```c
+switch(변수)
+{
+    case 값1:
+        실행문;
+        break;
+
+    case 값2:
+        실행문;
+        break;
+
+    default:
+        실행문;
+}
+```
+
+---
+
+## 메뉴 선택 예제
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int menu;
+
+    printf("메뉴 선택 : ");
+    scanf("%d", &menu);
+
+    switch(menu)
+    {
+        case 1:
+            printf("생산 시작\n");
+            break;
+
+        case 2:
+            printf("생산 중지\n");
+            break;
+
+        case 3:
+            printf("설비 상태 확인\n");
+            break;
+
+        default:
+            printf("잘못된 입력\n");
+    }
+
+    return 0;
+}
+```
+
+---
+
+# 7. break문의 역할
+
+switch문에서 break가 없으면 아래 case가 계속 실행된다.
+
+예제
+
+```c
+switch(menu)
+{
+    case 1:
+        printf("A\n");
+
+    case 2:
+        printf("B\n");
+
+    case 3:
+        printf("C\n");
+}
+```
+
+menu가 1이면
+
+```text
+A
+B
+C
+```
+
+가 모두 출력된다.
+
+따라서 대부분의 경우 break를 사용한다.
+
+---
+
+# 8. if문과 switch문 비교
+
+| 항목      | if | switch |
+| ------- | -- | ------ |
+| 범위 비교   | 가능 | 불가능    |
+| 논리연산 사용 | 가능 | 불가능    |
+| 값 비교    | 가능 | 가능     |
+| 메뉴 선택   | 가능 | 매우 적합  |
+
+---
+
+# 실습 문제
+
+## 문제 1
+
+온도를 입력받아
+
+```text
+100 이상 : 위험
+80 이상 : 주의
+80 미만 : 정상
+```
+
+을 출력하시오.
+
+---
+
+## 문제 2
+
+제품 검사 결과를 입력받아
+
+```text
+1 : 정상
+0 : 불량
+```
+
+을 출력하시오.
+
+---
+
+## 문제 3
+
+점수를 입력받아
+
+```text
+90 이상 : A
+80 이상 : B
+70 이상 : C
+그 외 : F
+```
+
+를 출력하시오.
+
+---
+
+## 문제 4
+
+온도와 압력을 입력받아
+
+```text
+온도 80 초과 AND 압력 50 초과
+```
+
+이면 설비 이상을 출력하시오.
+
+---
+
+## 문제 5
+
+다음 메뉴를 switch문으로 작성하시오.
+
+```text
+1. 생산 시작
+2. 생산 중지
+3. 설비 상태 확인
+4. 생산 현황 조회
+0. 종료
+```
+
+---
+
+# 핵심 정리
+
+* if : 조건이 참이면 실행
+* if~else : 두 가지 경우 선택
+* if~else if~else : 여러 조건 선택
+* 중첩 if : 조건문 안의 조건문
+* && : AND
+* || : OR
+* ! : NOT
+* switch : 메뉴 선택과 같은 값 비교에 적합
+* break : switch문 종료
