@@ -48,3 +48,32 @@ int main()
 }
 
 ```
+
+**두개의 변수를 받아 넓이를 구해보자.**
+```c
+#include <stdio.h>
+
+int main()
+{
+	int width, height;
+	
+	printf("width 입력 : ");
+	scanf_s("%d", &width);
+	printf("height 입력 : ");
+	scanf_s("%d", &height);
+
+	int area = width * height; //수식
+
+	printf("넓이 : %d\n", area);
+
+	return 0;
+}
+```
+
+
+
+
+
+
+
+
