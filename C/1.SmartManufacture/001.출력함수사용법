@@ -1,1 +1,250 @@
+# printf() 함수와 scanf() 함수
 
+## 개요
+
+`printf()`와 `scanf()`는 C 언어에서 가장 많이 사용하는 표준 입출력 함수입니다.
+
+- `printf()` : 화면(콘솔)에 데이터를 출력
+- `scanf()` : 키보드로부터 데이터를 입력
+
+헤더 파일:
+
+```c
+#include <stdio.h>
+```
+
+---
+
+# printf() 함수
+
+## 함수 원형
+
+```c
+int printf(const char *format, ...);
+```
+
+## 설명
+
+`printf()`는 형식 지정자(Format Specifier)를 이용하여 변수의 값을 화면에 출력합니다.
+
+## 사용 예제
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int age = 25;
+    float height = 175.5f;
+    char grade = 'A';
+
+    printf("나이 : %d\n", age);
+    printf("키 : %.1f\n", height);
+    printf("학점 : %c\n", grade);
+
+    return 0;
+}
+```
+
+## 실행 결과
+
+```text
+나이 : 25
+키 : 175.5
+학점 : A
+```
+
+---
+
+## 주요 형식 지정자
+
+| 형식 지정자 | 의미 | 예 |
+|------------|------|-----|
+| `%d` | 정수(int) | 100 |
+| `%f` | 실수(float, double) | 3.14 |
+| `%c` | 문자(char) | A |
+| `%s` | 문자열(char 배열) | Hello |
+| `%x` | 16진수 | FF |
+| `%o` | 8진수 | 77 |
+| `%%` | % 문자 출력 | % |
+
+예제:
+
+```c
+printf("%d\n", 100);
+printf("%.2f\n", 3.141592);
+printf("%c\n", 'A');
+printf("%s\n", "Hello");
+```
+
+---
+
+# scanf() 함수
+
+## 함수 원형
+
+```c
+int scanf(const char *format, ...);
+```
+
+## 설명
+
+`scanf()`는 키보드로 입력된 값을 변수에 저장하는 함수입니다.
+
+변수의 주소를 전달하기 위해 `&` 연산자를 사용합니다.
+
+## 사용 예제
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int age;
+
+    printf("나이를 입력하세요 : ");
+    scanf("%d", &age);
+
+    printf("입력한 나이 : %d\n", age);
+
+    return 0;
+}
+```
+
+## 실행 결과
+
+```text
+나이를 입력하세요 : 30
+입력한 나이 : 30
+```
+
+---
+
+## 여러 개 입력받기
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int a, b;
+
+    printf("두 개의 정수 입력 : ");
+    scanf("%d %d", &a, &b);
+
+    printf("a = %d\n", a);
+    printf("b = %d\n", b);
+
+    return 0;
+}
+```
+
+실행:
+
+```text
+두 개의 정수 입력 : 10 20
+a = 10
+b = 20
+```
+
+---
+
+## 문자열 입력
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    char name[20];
+
+    printf("이름 입력 : ");
+    scanf("%s", name);
+
+    printf("이름 : %s\n", name);
+
+    return 0;
+}
+```
+
+실행:
+
+```text
+이름 입력 : Hong
+이름 : Hong
+```
+
+---
+
+# scanf() 사용 시 주의사항
+
+## 잘못된 예
+
+```c
+int num;
+scanf("%d", num);
+```
+
+변수의 주소가 전달되지 않아 오류가 발생할 수 있습니다.
+
+## 올바른 예
+
+```c
+int num;
+scanf("%d", &num);
+```
+
+---
+
+# printf()와 scanf() 함께 사용하기
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    char name[20];
+    int age;
+
+    printf("이름 입력 : ");
+    scanf("%s", name);
+
+    printf("나이 입력 : ");
+    scanf("%d", &age);
+
+    printf("이름 : %s\n", name);
+    printf("나이 : %d\n", age);
+
+    return 0;
+}
+```
+
+실행:
+
+```text
+이름 입력 : Kim
+나이 입력 : 25
+
+이름 : Kim
+나이 : 25
+```
+
+---
+
+# 요약
+
+| 함수 | 역할 |
+|--------|--------|
+| `printf()` | 화면 출력 |
+| `scanf()` | 키보드 입력 |
+
+대표 형식 지정자:
+
+| 형식 | 의미 |
+|--------|--------|
+| `%d` | 정수 |
+| `%f` | 실수 |
+| `%c` | 문자 |
+| `%s` | 문자열 |
+
+실무에서는 `scanf()`보다 입력 안정성이 높은 `fgets()`를 사용하는 경우도 많지만, C 언어 입문 단계에서는 `printf()`와 `scanf()`가 가장 기본적인 입출력 함수입니다.
