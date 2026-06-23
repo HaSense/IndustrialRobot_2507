@@ -9,9 +9,17 @@
    실행
    ./product_sqlite
   */
-
 #include <stdio.h>
+#include <string.h>
 #include <sqlite3.h>
+
+typedef struct
+{
+    int id;
+    char name[50];
+    int quantity;
+    int price;
+} Product;
 
 void executeSQL(sqlite3 *db, const char *sql)
 {
@@ -65,9 +73,18 @@ void printMenu()
     printf("메뉴 선택: ");
 }
 
+void printProduct(Product p)
+{
+    printf("%d\t%-15s\t%d개\t%d원\n",
+           p.id, p.name, p.quantity, p.price);
+}
+
 void printAll(sqlite3 *db)
 {
-    const char *sql = "SELECT id, name, quantity, price FROM products ORDER BY id;";
+    const char *sql =
+        "SELECT id, name, quantity, price "
+        "FROM products ORDER BY id;";
+
     sqlite3_stmt *stmt;
 
     sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
@@ -77,11 +94,14 @@ void printAll(sqlite3 *db)
 
     while (sqlite3_step(stmt) == SQLITE_ROW)
     {
-        printf("%d\t%-15s\t%d개\t%d원\n",
-               sqlite3_column_int(stmt, 0),
-               sqlite3_column_text(stmt, 1),
-               sqlite3_column_int(stmt, 2),
-               sqlite3_column_int(stmt, 3));
+        Product p;
+
+        p.id = sqlite3_column_int(stmt, 0);
+        strcpy(p.name, (const char *)sqlite3_column_text(stmt, 1));
+        p.quantity = sqlite3_column_int(stmt, 2);
+        p.price = sqlite3_column_int(stmt, 3);
+
+        printProduct(p);
     }
 
     sqlite3_finalize(stmt);
@@ -90,25 +110,31 @@ void printAll(sqlite3 *db)
 void searchProduct(sqlite3 *db)
 {
     int id;
+
     printf("검색할 부품 ID 입력: ");
     scanf("%d", &id);
 
     const char *sql =
-        "SELECT id, name, quantity, price FROM products WHERE id = ?;";
+        "SELECT id, name, quantity, price "
+        "FROM products WHERE id = ?;";
 
     sqlite3_stmt *stmt;
+
     sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
     sqlite3_bind_int(stmt, 1, id);
 
     if (sqlite3_step(stmt) == SQLITE_ROW)
     {
+        Product p;
+
+        p.id = sqlite3_column_int(stmt, 0);
+        strcpy(p.name, (const char *)sqlite3_column_text(stmt, 1));
+        p.quantity = sqlite3_column_int(stmt, 2);
+        p.price = sqlite3_column_int(stmt, 3);
+
         printf("\nID\t부품명\t\t수량\t가격\n");
         printf("----------------------------------------\n");
-        printf("%d\t%-15s\t%d개\t%d원\n",
-               sqlite3_column_int(stmt, 0),
-               sqlite3_column_text(stmt, 1),
-               sqlite3_column_int(stmt, 2),
-               sqlite3_column_int(stmt, 3));
+        printProduct(p);
     }
     else
     {
@@ -140,20 +166,18 @@ void stockIn(sqlite3 *db)
         "WHERE id = ?;";
 
     sqlite3_stmt *stmt;
+
     sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
     sqlite3_bind_int(stmt, 1, amount);
     sqlite3_bind_int(stmt, 2, id);
+
     sqlite3_step(stmt);
     sqlite3_finalize(stmt);
 
     if (sqlite3_changes(db) == 0)
-    {
         printf("해당 부품을 찾을 수 없습니다.\n");
-    }
     else
-    {
         printf("입고 처리가 완료되었습니다.\n");
-    }
 }
 
 void stockOut(sqlite3 *db)
@@ -178,60 +202,54 @@ void stockOut(sqlite3 *db)
         "WHERE id = ? AND quantity >= ?;";
 
     sqlite3_stmt *stmt;
+
     sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
     sqlite3_bind_int(stmt, 1, amount);
     sqlite3_bind_int(stmt, 2, id);
     sqlite3_bind_int(stmt, 3, amount);
+
     sqlite3_step(stmt);
     sqlite3_finalize(stmt);
 
     if (sqlite3_changes(db) == 0)
-    {
         printf("해당 부품이 없거나 재고가 부족합니다.\n");
-    }
     else
-    {
         printf("출고 처리가 완료되었습니다.\n");
-    }
 }
 
 void addProduct(sqlite3 *db)
 {
-    int id, quantity, price;
-    char name[50];
+    Product p;
 
     printf("신규 부품 ID 입력: ");
-    scanf("%d", &id);
+    scanf("%d", &p.id);
 
     printf("부품명 입력: ");
-    scanf("%s", name);
+    scanf("%s", p.name);
 
     printf("재고 수량 입력: ");
-    scanf("%d", &quantity);
+    scanf("%d", &p.quantity);
 
     printf("가격 입력: ");
-    scanf("%d", &price);
+    scanf("%d", &p.price);
 
     const char *sql =
         "INSERT INTO products(id, name, quantity, price) "
         "VALUES (?, ?, ?, ?);";
 
     sqlite3_stmt *stmt;
+
     sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
 
-    sqlite3_bind_int(stmt, 1, id);
-    sqlite3_bind_text(stmt, 2, name, -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int(stmt, 3, quantity);
-    sqlite3_bind_int(stmt, 4, price);
+    sqlite3_bind_int(stmt, 1, p.id);
+    sqlite3_bind_text(stmt, 2, p.name, -1, SQLITE_TRANSIENT);
+    sqlite3_bind_int(stmt, 3, p.quantity);
+    sqlite3_bind_int(stmt, 4, p.price);
 
     if (sqlite3_step(stmt) == SQLITE_DONE)
-    {
         printf("신규 부품이 등록되었습니다.\n");
-    }
     else
-    {
         printf("등록 실패: 이미 존재하는 ID일 수 있습니다.\n");
-    }
 
     sqlite3_finalize(stmt);
 }
@@ -243,9 +261,11 @@ void deleteProduct(sqlite3 *db)
     printf("삭제할 부품 ID 입력: ");
     scanf("%d", &id);
 
-    const char *sql = "DELETE FROM products WHERE id = ?;";
+    const char *sql =
+        "DELETE FROM products WHERE id = ?;";
 
     sqlite3_stmt *stmt;
+
     sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
     sqlite3_bind_int(stmt, 1, id);
 
@@ -253,13 +273,9 @@ void deleteProduct(sqlite3 *db)
     sqlite3_finalize(stmt);
 
     if (sqlite3_changes(db) == 0)
-    {
         printf("해당 부품을 찾을 수 없습니다.\n");
-    }
     else
-    {
         printf("부품이 삭제되었습니다.\n");
-    }
 }
 
 int main()
@@ -281,25 +297,41 @@ int main()
         printMenu();
         scanf("%d", &choice);
 
-        if (choice == 1)
-            printAll(db);
-        else if (choice == 2)
-            searchProduct(db);
-        else if (choice == 3)
-            stockIn(db);
-        else if (choice == 4)
-            stockOut(db);
-        else if (choice == 5)
-            addProduct(db);
-        else if (choice == 6)
-            deleteProduct(db);
-        else if (choice == 0)
+        switch (choice)
         {
+        case 1:
+            printAll(db);
+            break;
+
+        case 2:
+            searchProduct(db);
+            break;
+
+        case 3:
+            stockIn(db);
+            break;
+
+        case 4:
+            stockOut(db);
+            break;
+
+        case 5:
+            addProduct(db);
+            break;
+
+        case 6:
+            deleteProduct(db);
+            break;
+
+        case 0:
             printf("프로그램을 종료합니다.\n");
+            sqlite3_close(db);
+            return 0;
+
+        default:
+            printf("잘못된 메뉴입니다.\n");
             break;
         }
-        else
-            printf("잘못된 메뉴입니다.\n");
     }
 
     sqlite3_close(db);
