@@ -112,8 +112,11 @@ void createProduct()
 // Read : 제품 전체 조회
 void readProducts()
 {
-    FILE *fp;
+     FILE *fp;
     Product p;
+    char line[256];
+    int lineNo = 0;
+    int count = 0;
 
     fp = fopen(FILE_NAME, "r");
 
@@ -127,21 +130,48 @@ void readProducts()
     printf("번호\t제품명\t수량\t가격\n");
     printf("--------------------------------\n");
 
-    // 파일에서 구조체 단위로 읽기
-    while (fscanf(fp, "%d,%49[^,],%d,%d",
-                  &p.id,
-                  p.name,
-                  &p.qty,
-                  &p.price) == 4)
+    while (fgets(line, sizeof(line), fp) != NULL)
     {
-        printf("%d\t%s\t%d\t%d\n",
-               p.id,
-               p.name,
-               p.qty,
-               p.price);
+        lineNo++;
+
+        // 줄 끝 개행 문자 제거
+        line[strcspn(line, "\n")] = '\0';
+
+        // 빈 줄은 건너뜀
+        if (strlen(line) == 0)
+        {
+            continue;
+        }
+
+        int result = sscanf(line, "%d,%49[^,],%d,%d",
+                            &p.id,
+                            p.name,
+                            &p.qty,
+                            &p.price);
+
+        if (result == 4)
+        {
+            printf("%d\t%s\t%d\t%d\n",
+                   p.id,
+                   p.name,
+                   p.qty,
+                   p.price);
+            count++;
+        }
+        else
+        {
+            printf("\n[데이터 형식 오류]\n");
+            printf("줄 번호 : %d\n", lineNo);
+            printf("원본 내용 : %s\n", line);
+            printf("읽은 항목 수 : %d개\n", result);
+            printf("필요한 형식 : 제품번호,제품명,수량,가격\n");
+            printf("예시 : 1001,Motor,50,12000\n");
+        }
     }
 
     fclose(fp);
+
+    printf("\n총 %d개의 제품을 조회했습니다.\n", count);
 }
 
 // Update : 제품 수량과 가격 수정
