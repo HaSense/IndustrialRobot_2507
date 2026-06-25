@@ -1,37 +1,43 @@
-# Chapter 5. 데이터 추가 (INSERT)
+# Chapter 7. 조건 검색 (WHERE)
 
 ## 학습목표
 
-* INSERT 문의 역할을 이해할 수 있다.
-* 테이블에 데이터를 추가할 수 있다.
-* 여러 개의 생산 데이터를 입력할 수 있다.
-* 입력된 데이터를 확인할 수 있다.
+* WHERE 절의 역할을 이해할 수 있다.
+* 특정 조건에 맞는 데이터만 조회할 수 있다.
+* 비교 연산자를 사용할 수 있다.
+* 제조 현장의 생산 데이터를 조건별로 검색할 수 있다.
 
 ---
 
-# 5.1 데이터 추가란?
+# 7.1 조건 검색이란?
 
-테이블을 만들었다면 이제 데이터를 저장해야 한다.
+지금까지는 테이블의 모든 데이터를 조회하였다.
 
-예를 들어 생산 현장에서 다음과 같은 생산 실적이 발생했다고 가정하자.
+```sql
+SELECT *
+FROM production;
+```
 
-| 생산번호 | 제품명    | 생산수량 | 생산일        |
-| ---- | ------ | ---- | ---------- |
-| 1    | Motor  | 100  | 2026-06-22 |
-| 2    | Sensor | 200  | 2026-06-22 |
-| 3    | Pump   | 150  | 2026-06-23 |
+하지만 실제 현장에서는 특정 데이터만 보고 싶은 경우가 많다.
 
-이 데이터를 테이블에 저장하는 작업을 **INSERT** 라고 한다.
+예를 들어
+
+* 생산량이 200개 이상인 제품
+* Motor 제품만 조회
+* 특정 날짜의 생산 기록 조회
+
+이럴 때 사용하는 것이 **WHERE** 절이다.
 
 ---
 
-# 5.2 INSERT 기본 문법
+# 7.2 WHERE 기본 문법
 
 ## 문법
 
 ```sql
-INSERT INTO 테이블명
-VALUES(값1, 값2, 값3);
+SELECT 컬럼명
+FROM 테이블명
+WHERE 조건;
 ```
 
 ---
@@ -39,243 +45,146 @@ VALUES(값1, 값2, 값3);
 ## 예제
 
 ```sql
-INSERT INTO production
-VALUES(1,'Motor',100,'2026-06-22');
-```
-
-실행 결과
-
-```text
-sqlite>
-```
-
-오류가 없으면 정상적으로 저장된 것이다.
-
----
-
-# 5.3 컬럼명을 지정하여 입력
-
-컬럼명을 직접 지정할 수도 있다.
-
-## 문법
-
-```sql
-INSERT INTO 테이블명(
-    컬럼명1,
-    컬럼명2
-)
-VALUES(
-    값1,
-    값2
-);
+SELECT *
+FROM production
+WHERE qty > 200;
 ```
 
 ---
 
-## 예제
+# 7.3 비교 연산자
 
-```sql
-INSERT INTO production(
-    id,
-    product_name,
-    qty,
-    prod_date
-)
-VALUES(
-    2,
-    'Sensor',
-    200,
-    '2026-06-22'
-);
-```
+WHERE 절에서는 비교 연산자를 사용한다.
+
+| 연산자 | 의미     |
+| --- | ------ |
+| =   | 같다     |
+| !=  | 같지 않다  |
+| <>  | 같지 않다  |
+| >   | 크다     |
+| <   | 작다     |
+| >=  | 크거나 같다 |
+| <=  | 작거나 같다 |
 
 ---
 
-# 5.4 문자열 입력
+# 7.4 숫자 조건 검색
 
-문자열(TEXT)은 작은따옴표를 사용한다.
-
-## 올바른 예
+생산량이 200보다 큰 데이터 조회
 
 ```sql
-INSERT INTO production
-VALUES(3,'Pump',150,'2026-06-23');
-```
-
----
-
-## 잘못된 예
-
-```sql
-INSERT INTO production
-VALUES(3,Pump,150,'2026-06-23');
-```
-
-오류 발생
-
-```text
-no such column: Pump
-```
-
----
-
-# 5.5 숫자 입력
-
-정수(INTEGER)는 따옴표 없이 입력한다.
-
-```sql
-100
-200
-300
-```
-
-예제
-
-```sql
-INSERT INTO production
-VALUES(4,'Valve',300,'2026-06-23');
-```
-
----
-
-# 5.6 PRIMARY KEY 중복 오류
-
-ID는 PRIMARY KEY 이므로 중복될 수 없다.
-
-이미 존재하는 ID를 다시 입력하면 오류가 발생한다.
-
-```sql
-INSERT INTO production
-VALUES(1,'Robot',500,'2026-06-25');
-```
-
-결과
-
-```text
-UNIQUE constraint failed
-```
-
----
-
-# 실습 1. production 테이블 확인
-
-먼저 현재 테이블이 존재하는지 확인한다.
-
-```sql
-.tables
-```
-
-결과
-
-```text
-production
-```
-
----
-
-# 실습 2. 첫 번째 생산 데이터 입력
-
-```sql
-INSERT INTO production
-VALUES(
-    1,
-    'Motor',
-    100,
-    '2026-06-22'
-);
-```
-
----
-
-# 실습 3. 두 번째 생산 데이터 입력
-
-```sql
-INSERT INTO production
-VALUES(
-    2,
-    'Sensor',
-    200,
-    '2026-06-22'
-);
-```
-
----
-
-# 실습 4. 세 번째 생산 데이터 입력
-
-```sql
-INSERT INTO production
-VALUES(
-    3,
-    'Pump',
-    150,
-    '2026-06-23'
-);
-```
-
----
-
-# 실습 5. 네 번째 생산 데이터 입력
-
-```sql
-INSERT INTO production
-VALUES(
-    4,
-    'Valve',
-    300,
-    '2026-06-23'
-);
-```
-
----
-
-# 실습 6. 다섯 번째 생산 데이터 입력
-
-```sql
-INSERT INTO production
-VALUES(
-    5,
-    'Bearing',
-    250,
-    '2026-06-24'
-);
-```
-
----
-
-# 실습 7. 입력 결과 확인
-
-현재까지 입력한 데이터를 확인한다.
-
-```sql
-SELECT * FROM production;
+SELECT *
+FROM production
+WHERE qty > 200;
 ```
 
 결과 예
 
 ```text
-1|Motor|100|2026-06-22
-2|Sensor|200|2026-06-22
-3|Pump|150|2026-06-23
 4|Valve|300|2026-06-23
 5|Bearing|250|2026-06-24
+8|Frame|220|2026-06-25
 ```
 
 ---
 
-# 실습 8. 표 형태로 보기
+# 7.5 문자열 조건 검색
+
+제품명이 Motor인 데이터 조회
 
 ```sql
-.mode table
-```
-
-조회
-
-```sql
-SELECT * FROM production;
+SELECT *
+FROM production
+WHERE product_name = 'Motor';
 ```
 
 결과
+
+```text
+1|Motor|100|2026-06-22
+```
+
+문자열은 반드시 작은따옴표를 사용한다.
+
+---
+
+# 7.6 날짜 조건 검색
+
+특정 날짜 생산 데이터 조회
+
+```sql
+SELECT *
+FROM production
+WHERE prod_date = '2026-06-25';
+```
+
+---
+
+# 7.7 특정 컬럼만 조회
+
+조건 검색과 특정 컬럼 조회를 함께 사용할 수 있다.
+
+```sql
+SELECT product_name, qty
+FROM production
+WHERE qty >= 200;
+```
+
+결과 예
+
+```text
+Valve|300
+Bearing|250
+Frame|220
+```
+
+---
+
+# 7.8 제조 현장 활용 사례
+
+## 생산량 200개 이상 제품 조회
+
+```sql
+SELECT *
+FROM production
+WHERE qty >= 200;
+```
+
+---
+
+## Motor 제품 조회
+
+```sql
+SELECT *
+FROM production
+WHERE product_name = 'Motor';
+```
+
+---
+
+## 특정 날짜 생산실적 조회
+
+```sql
+SELECT *
+FROM production
+WHERE prod_date = '2026-06-25';
+```
+
+---
+
+# 실습 1. 데이터 확인
+
+먼저 데이터를 확인한다.
+
+```sql
+.mode table
+.headers on
+
+SELECT *
+FROM production;
+```
+
+예상 데이터
 
 ```text
 +----+--------------+-----+------------+
@@ -286,63 +195,215 @@ SELECT * FROM production;
 | 3  | Pump         | 150 | 2026-06-23 |
 | 4  | Valve        | 300 | 2026-06-23 |
 | 5  | Bearing      | 250 | 2026-06-24 |
+| 6  | Battery      | 120 | 2026-06-25 |
+| 7  | Module       | 180 | 2026-06-25 |
+| 8  | Frame        | 220 | 2026-06-25 |
 +----+--------------+-----+------------+
 ```
 
 ---
 
-# 실습 9. 중복 키 오류 확인
-
-다음 명령을 실행해보자.
+# 실습 2. 생산량이 200보다 큰 데이터 조회
 
 ```sql
-INSERT INTO production
-VALUES(
-    1,
-    'Robot',
-    500,
-    '2026-06-25'
-);
+SELECT *
+FROM production
+WHERE qty > 200;
 ```
 
-결과
-
-```text
-UNIQUE constraint failed
-```
-
-ID가 중복되어 저장되지 않는다.
+몇 개의 제품이 조회되는지 확인하시오.
 
 ---
 
-# 제조AI 응용 실습
-
-다음 생산 데이터를 직접 입력하시오.
-
-| ID | 제품명     | 수량  | 생산일 |
-| -- | ------- | --- | --- |
-| 6  | Battery | 120 |     |
-| 7  | Module  | 180 |     |
-| 8  | Frame   | 220 |     |
-
-생산일은 오늘 날짜를 사용한다.
-
-입력 후 조회하시오.
+# 실습 3. 생산량이 200 이상인 데이터 조회
 
 ```sql
-SELECT * FROM production;
+SELECT *
+FROM production
+WHERE qty >= 200;
 ```
+
+실습 2와 결과를 비교하시오.
+
+---
+
+# 실습 4. 생산량이 150 미만인 제품 조회
+
+```sql
+SELECT *
+FROM production
+WHERE qty < 150;
+```
+
+---
+
+# 실습 5. Motor 제품 조회
+
+```sql
+SELECT *
+FROM production
+WHERE product_name = 'Motor';
+```
+
+---
+
+# 실습 6. Sensor 제품 조회
+
+```sql
+SELECT *
+FROM production
+WHERE product_name = 'Sensor';
+```
+
+---
+
+# 실습 7. 생산일이 2026-06-25인 데이터 조회
+
+```sql
+SELECT *
+FROM production
+WHERE prod_date = '2026-06-25';
+```
+
+---
+
+# 실습 8. 생산일이 2026-06-23인 데이터 조회
+
+```sql
+SELECT *
+FROM production
+WHERE prod_date = '2026-06-23';
+```
+
+---
+
+# 실습 9. 생산량이 200 이상인 제품명만 조회
+
+```sql
+SELECT product_name
+FROM production
+WHERE qty >= 200;
+```
+
+---
+
+# 실습 10. 생산량이 200 이상인 제품명과 생산량 조회
+
+```sql
+SELECT product_name, qty
+FROM production
+WHERE qty >= 200;
+```
+
+---
+
+# 실습 11. 같지 않은 데이터 조회
+
+Motor가 아닌 제품 조회
+
+```sql
+SELECT *
+FROM production
+WHERE product_name != 'Motor';
+```
+
+---
+
+# 실습 12. 제조AI 생산관리 실습
+
+다음 요구사항에 맞는 SQL을 작성하시오.
+
+### 문제 1
+
+생산량이 250 이상인 제품 조회
+
+### 문제 2
+
+Battery 제품만 조회
+
+### 문제 3
+
+2026-06-22 생산 데이터 조회
+
+### 문제 4
+
+생산량이 150 이하인 제품 조회
+
+### 문제 5
+
+Motor 제품의 생산량만 조회
+
+---
+
+# 실습 13. 품질관리 실습
+
+품질팀에서 다음 정보를 요청하였다.
+
+### 요구사항
+
+생산량이 200개 이상인 제품의
+
+* 제품명
+* 생산량
+* 생산일
+
+만 출력하시오.
+
+정답 예시
+
+```sql
+SELECT product_name, qty, prod_date
+FROM production
+WHERE qty >= 200;
+```
+
+---
+
+# 실습 14. SQL 작성 연습
+
+다음 결과가 나오도록 SQL을 작성하시오.
+
+```text
+Valve|300
+Bearing|250
+Frame|220
+```
+
+---
+
+# 실습 15. 데이터 분석 실습
+
+다음 질문에 SQL로 답하시오.
+
+### 문제 1
+
+생산량이 가장 많은 제품 후보는?
+
+### 문제 2
+
+생산량이 200개 이상인 제품은 몇 개인가?
+
+### 문제 3
+
+2026-06-25 생산 제품은 몇 개인가?
+
+### 문제 4
+
+Motor 제품의 생산량은 얼마인가?
 
 ---
 
 # 핵심 정리
 
-| 명령어           | 설명       |
-| ------------- | -------- |
-| INSERT INTO   | 데이터 추가   |
-| VALUES        | 저장할 값 지정 |
-| SELECT * FROM | 전체 조회    |
-| .mode table   | 표 형태 출력  |
+| 문법    | 설명     |
+| ----- | ------ |
+| WHERE | 조건 검색  |
+| =     | 같다     |
+| !=    | 같지 않다  |
+| >     | 크다     |
+| <     | 작다     |
+| >=    | 크거나 같다 |
+| <=    | 작거나 같다 |
 
 ---
 
@@ -350,24 +411,20 @@ SELECT * FROM production;
 
 ### 문제 1
 
-데이터를 추가하는 SQL 명령어는?
+생산량이 300인 데이터를 조회하는 SQL은?
 
 ### 문제 2
 
-문자열 데이터는 어떤 기호로 감싸야 하는가?
+제품명이 Frame인 데이터를 조회하는 SQL은?
 
 ### 문제 3
 
-PRIMARY KEY가 중복되면 어떻게 되는가?
+생산일이 2026-06-24인 데이터를 조회하는 SQL은?
 
 ### 문제 4
 
-production 테이블에 다음 데이터를 추가하는 SQL을 작성하시오.
-
-| id | product_name | qty | prod_date  |
-| -- | ------------ | --- | ---------- |
-| 10 | Robot        | 500 | 2026-06-25 |
+생산량이 200 이상인 제품명만 조회하는 SQL은?
 
 ### 문제 5
 
-production 테이블의 모든 데이터를 조회하는 SQL을 작성하시오.
+Motor가 아닌 모든 데이터를 조회하는 SQL은?
