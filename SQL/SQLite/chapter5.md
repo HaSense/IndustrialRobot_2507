@@ -79,7 +79,7 @@ INSERT INTO production(
     id,
     product_name,
     quantity,
-    prod_date
+    production_date
 )
 VALUES(
     2,
