@@ -1,8 +1,8 @@
 CREATE TABLE production (
     id INTEGER PRIMARY KEY,
-    product_name TEXT NOT NULL,
-    quantity INTEGER NOT NULL,
-    production_date TEXT NOT NULL
+    product_name TEXT,
+    qty INTEGER,
+    prod_date TEXT
 );
 
 
