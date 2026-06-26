@@ -108,7 +108,12 @@ SQLiteStudio 다운로드
 (버전은 변경될 수 있습니다.)
 
 ```bash
-wget https://sqlitestudio.pl/files/sqlitestudio-3.4.17-linux-x64.AppImage
+wget https://github.com/pawelsalawa/letos/releases/download/3.4.21/sqlitestudio-3.4.21-linux-x64.tar.xz
+
+tar -xJf sqlitestudio-3.4.21-linux-x64.tar.xz
+
+cd sqlitestudio
+./sqlitestudio
 ```
 
 ---
