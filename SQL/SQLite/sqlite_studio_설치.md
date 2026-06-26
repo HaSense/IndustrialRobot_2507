@@ -88,6 +88,8 @@ WSLg가 표시되면 GUI 프로그램 실행이 가능합니다.
 
 ```bash
 sudo apt update
+sudo apt install libxcb-cursor0 libxkbcommon-x11-0 libxcb-xinerama0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0
+
 sudo apt upgrade
 ```
 
