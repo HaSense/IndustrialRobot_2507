@@ -355,9 +355,9 @@ FROM customer;
 ```sql
 SELECT
 product_name,
-quantity,
+qty,
 price,
-quantity * price AS total_price
+qty * price AS total_price
 FROM production;
 ```
 
@@ -477,7 +477,7 @@ Pump(150개) - 1200000원
 
 ROUND()
 
-quantity * price
+qty * price
 ```
 
 ---
