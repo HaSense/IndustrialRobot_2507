@@ -120,10 +120,13 @@ cd sqlitestudio
 
 ---
 
-# 4. 실행 권한 부여
+# 4. 강제 실행법
 
 ```bash
-chmod +x sqlitestudio-3.4.17-linux-x64.AppImage
+QT_QPA_PLATFORM=wayland ./sqlitestudio
+
+또는
+QT_QPA_PLATFORM=xcb ./sqlitestudio
 ```
 
 ---
