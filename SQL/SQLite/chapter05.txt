@@ -5,4 +5,15 @@ CREATE TABLE production (
     prod_date TEXT
 );
 
+INSERT INTO production (id, product_name, qty, prod_date)
+VALUES
+(1, 'Motor', 100, '2026-06-22'),
+(2, 'Sensor', 200, '2026-06-22'),
+(3, 'Pump', 150, '2026-06-23'),
+(4, 'Valve', 300, '2026-06-23'),
+(5, 'Bearing', 250, '2026-06-24'),
+(6, 'Battery', 120, '2026-06-25'),
+(7, 'Module', 180, '2026-06-25'),
+(8, 'Frame', 220, '2026-06-25');
+
 
