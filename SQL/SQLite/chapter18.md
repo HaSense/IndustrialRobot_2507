@@ -18,9 +18,9 @@
 CREATE TABLE production (
     id INTEGER PRIMARY KEY,
     product_name TEXT,
-    quantity INTEGER,
+    qty INTEGER,
     price INTEGER,
-    production_date TEXT
+    prod_date TEXT
 );
 
 INSERT INTO production VALUES
