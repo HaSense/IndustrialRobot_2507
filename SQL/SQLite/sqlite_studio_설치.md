@@ -131,10 +131,15 @@ QT_QPA_PLATFORM=xcb ./sqlitestudio
 
 ---
 
-# 5. SQLiteStudio 실행
+# 5. 한글폰트 설치
 
 ```bash
-./sqlitestudio-3.4.17-linux-x64.AppImage
+sudo apt update
+sudo apt install fonts-nanum fonts-noto-cjk
+sudo apt install fonts-noto-core
+
+폰트캐시 갱신
+fc-cache -fv
 ```
 
 잠시 후 Windows 화면에 SQLiteStudio가 실행됩니다.
