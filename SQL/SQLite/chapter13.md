@@ -59,11 +59,11 @@ LOT 추적
 
 현재 제품 테이블
 
-| product_id | name    |
-| ---------- | ------- |
-| 1          | Motor   |
-| 2          | Sensor  |
-| 3          | Bearing |
+| product_id | name    | price   |
+| ---------- | ------- | --------
+| 1          | Motor   | 100000  |
+| 2          | Sensor  | 50000   |
+| 3          | Bearing | 10000   |
 
 ---
 
