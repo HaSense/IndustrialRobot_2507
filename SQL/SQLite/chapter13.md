@@ -270,6 +270,19 @@ SELECT * FROM production_history;
 2|2|50|2026-06-22
 3|1|120|2026-06-23
 ```
+join구문
+```sql
+SELECT
+    h.history_id,
+    p.name,
+    h.qty,
+    h.prod_date
+FROM Production_History h
+INNER JOIN Products p
+ON h.product_id = p.product_id;
+
+```
+
 
 ---
 
