@@ -1,288 +1,379 @@
-# 6. 완제품 LOT와 원재료 LOT 연결
+---
 
-지금까지는 완제품 LOT만 관리하였다.
+# LOT와 원재료 추적
 
-하지만 실제 MES에서는 다음 질문에 답할 수 있어야 한다.
+지금까지는
 
 ```text
-RAMEN_20260622는
+LOT 번호
 
-어떤 원재료 LOT를 사용하여 생산되었는가?
+↓
+
+생산정보
 ```
 
-이를 위해서는
+만 관리하였다.
 
-* 원재료 LOT 테이블
-* 원재료 사용 이력 테이블
-
-이 필요하다.
-
----
-
-# 원재료 LOT 테이블
-
-```sql
-CREATE TABLE material_lot(
-    material_lot_id TEXT,
-    material_name TEXT,
-    supplier TEXT,
-    received_date TEXT
-);
-```
-
----
-
-# 원재료 LOT 등록
-
-```sql
-INSERT INTO material_lot
-VALUES
-('FLOUR_20260620_001','밀가루','대한제분','2026-06-20');
-
-INSERT INTO material_lot
-VALUES
-('SOUP_20260621_001','분말스프','스프협력사A','2026-06-21');
-
-INSERT INTO material_lot
-VALUES
-('OIL_20260619_001','팜유','유지협력사B','2026-06-19');
-```
-
----
-
-# 원재료 LOT 조회
-
-```sql
-SELECT *
-FROM material_lot;
-```
-
-예상 결과
+하지만 실제 공장에서는
 
 ```text
-FLOUR_20260620_001 | 밀가루 | 대한제분 | 2026-06-20
-SOUP_20260621_001  | 분말스프 | 스프협력사A | 2026-06-21
-OIL_20260619_001   | 팜유 | 유지협력사B | 2026-06-19
+어떤 원재료를 사용했는가?
 ```
+
+를 반드시 기록한다.
 
 ---
 
-# 원재료 사용 이력 테이블
-
-완제품 LOT 하나에는 여러 개의 원재료 LOT가 사용된다.
-
-이를 관리하기 위해 사용 이력 테이블을 만든다.
-
-```sql
-CREATE TABLE ramen_material_usage(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    ramen_lot_no TEXT,
-    material_lot_id TEXT,
-    used_qty REAL,
-    unit TEXT
-);
-```
-
----
-
-# 사용 이력 등록
-
-```sql
-INSERT INTO ramen_material_usage
-(ramen_lot_no, material_lot_id, used_qty, unit)
-VALUES
-('RAMEN_20260622','FLOUR_20260620_001',60,'kg');
-
-INSERT INTO ramen_material_usage
-(ramen_lot_no, material_lot_id, used_qty, unit)
-VALUES
-('RAMEN_20260622','SOUP_20260621_001',10,'kg');
-
-INSERT INTO ramen_material_usage
-(ramen_lot_no, material_lot_id, used_qty, unit)
-VALUES
-('RAMEN_20260622','OIL_20260619_001',15,'kg');
-```
-
----
-
-# 데이터 구조
-
-```text
-ramen_lot
----------------------
-lot_no
-product_name
-qty
-prod_date
-
-        │
-
-        ▼
-
-ramen_material_usage
----------------------
-ramen_lot_no
-material_lot_id
-used_qty
-unit
-
-        │
-
-        ▼
-
-material_lot
----------------------
-material_lot_id
-material_name
-supplier
-received_date
-```
-
----
-
-# 실습 11. 완제품 LOT에 사용된 원재료 조회
-
-다음 SQL을 실행하시오.
-
-```sql
-SELECT
-    r.lot_no,
-    r.product_name,
-    m.material_name,
-    m.material_lot_id,
-    u.used_qty,
-    u.unit
-FROM ramen_lot r
-JOIN ramen_material_usage u
-ON r.lot_no = u.ramen_lot_no
-JOIN material_lot m
-ON u.material_lot_id = m.material_lot_id
-WHERE r.lot_no='RAMEN_20260622';
-```
-
----
-
-예상 결과
-
-| LOT            | 제품   | 원재료 LOT            | 원재료  | 사용량 | 단위 |
-| -------------- | ---- | ------------------ | ---- | --- | -- |
-| RAMEN_20260622 | 매운라면 | FLOUR_20260620_001 | 밀가루  | 60  | kg |
-| RAMEN_20260622 | 매운라면 | SOUP_20260621_001  | 분말스프 | 10  | kg |
-| RAMEN_20260622 | 매운라면 | OIL_20260619_001   | 팜유   | 15  | kg |
-
----
-
-# 결과 해석
-
-위 결과는 다음 의미이다.
-
-```text
-RAMEN_20260622 LOT는
-
-밀가루 LOT
-분말스프 LOT
-팜유 LOT
-
-를 사용하여 생산되었다.
-```
-
-이것이 MES의 LOT 추적이다.
-
----
-
-# 실습 12. 원재료 LOT로 완제품 찾기
-
-상황
-
-```text
-분말스프 LOT에서 문제가 발견되었다.
-```
-
-어떤 완제품을 회수해야 하는가?
-
-다음 SQL을 작성하시오.
-
-```sql
-SELECT
-    m.material_lot_id,
-    m.material_name,
-    r.lot_no,
-    r.product_name,
-    r.qty
-FROM material_lot m
-JOIN ramen_material_usage u
-ON m.material_lot_id = u.material_lot_id
-JOIN ramen_lot r
-ON u.ramen_lot_no = r.lot_no
-WHERE m.material_lot_id='SOUP_20260621_001';
-```
-
----
-
-예상 결과
-
-| 원재료 LOT           | 원재료  | 완제품 LOT        | 제품   | 생산수량 |
-| ----------------- | ---- | -------------- | ---- | ---- |
-| SOUP_20260621_001 | 분말스프 | RAMEN_20260622 | 매운라면 | 100  |
-
----
-
-# 리콜(Recall)
-
-만약
-
-```text
-SOUP_20260621_001
-
-분말스프 LOT에서
-
-세균이 검출되었다.
-```
-
-라면
+예를 들어
 
 ```text
 RAMEN_20260622
 ```
 
-LOT를 회수하면 된다.
+라는 LOT는
 
-모든 제품을 회수할 필요는 없다.
+다음 재료를 사용했다고 가정한다.
+
+|재료|사용량|
+|------|------|
+|면|100kg|
+|스프|20kg|
+|건더기|10kg|
 
 ---
 
-# LOT 추적 방향
+# 가장 쉬운 LOT 추적 구조
 
-실제 MES에서는 두 가지 방향의 추적이 가능해야 한다.
+이번에는 테이블을 2개만 사용한다.
 
 ```text
-완제품 LOT
+LOT 테이블
 
 ↓
 
-사용된 원재료 LOT 조회
+LOT 재료 테이블
 ```
 
-그리고
+---
+
+## LOT 테이블
+
+```sql
+CREATE TABLE ramen_lot(
+    lot_no TEXT PRIMARY KEY,
+    product_name TEXT,
+    qty INTEGER,
+    prod_date TEXT
+);
+```
+
+---
+
+## LOT 재료 테이블
+
+```sql
+CREATE TABLE lot_material(
+    lot_no TEXT,
+    material_name TEXT,
+    material_qty INTEGER
+);
+```
+
+---
+
+# 데이터 입력
+
+## LOT 등록
+
+```sql
+INSERT INTO ramen_lot
+VALUES
+('RAMEN_20260622','매운라면',100,'2026-06-22');
+
+INSERT INTO ramen_lot
+VALUES
+('RAMEN_20260623','매운라면',120,'2026-06-23');
+```
+
+---
+
+## 원재료 등록
+
+```sql
+INSERT INTO lot_material
+VALUES
+('RAMEN_20260622','면',100);
+
+INSERT INTO lot_material
+VALUES
+('RAMEN_20260622','스프',20);
+
+INSERT INTO lot_material
+VALUES
+('RAMEN_20260622','건더기',10);
+
+INSERT INTO lot_material
+VALUES
+('RAMEN_20260623','면',120);
+
+INSERT INTO lot_material
+VALUES
+('RAMEN_20260623','스프',24);
+
+INSERT INTO lot_material
+VALUES
+('RAMEN_20260623','건더기',12);
+```
+
+---
+
+# 두 테이블 조회
+
+LOT
+
+```sql
+SELECT *
+FROM ramen_lot;
+```
+
+LOT 재료
+
+```sql
+SELECT *
+FROM lot_material;
+```
+
+---
+
+# JOIN으로 추적하기
+
+이제 LOT 하나를 선택하면
+
+사용한 재료를 확인할 수 있다.
+
+```sql
+SELECT
+    l.lot_no,
+    l.product_name,
+    m.material_name,
+    m.material_qty
+FROM ramen_lot l
+JOIN lot_material m
+ON l.lot_no = m.lot_no
+WHERE l.lot_no='RAMEN_20260622';
+```
+
+---
+
+## 결과
+
+|LOT|제품|재료|사용량|
+|------|------|------|------|
+|RAMEN_20260622|매운라면|면|100|
+|RAMEN_20260622|매운라면|스프|20|
+|RAMEN_20260622|매운라면|건더기|10|
+
+---
+
+# 왜 이렇게 관리할까?
+
+며칠 후
 
 ```text
-원재료 LOT
+스프에서 문제가 발생하였다.
+```
+
+어떤 제품을 회수해야 할까?
+
+JOIN을 이용하면
+
+```text
+스프를 사용한 LOT
+```
+
+를 쉽게 찾을 수 있다.
+
+이것이
+
+```text
+Traceability
+```
+
+이다.
+
+---
+
+# 실제 MES에서는?
+
+실제 공장은 이보다 훨씬 많은 정보를 관리한다.
+
+대표적인 LOT 추적 구조는 다음과 같다.
+
+```text
+제품(Product)
 
 ↓
 
-영향을 받은 완제품 LOT 조회
+생산 LOT(Lot)
+
+↓
+
+원재료(Material)
+
+↓
+
+설비(Equipment)
+
+↓
+
+작업자(Operator)
+
+↓
+
+품질검사(QC)
+
+↓
+
+출하(Shipment)
 ```
 
-이 두 기능이 바로 LOT 추적(Traceability)의 핵심이다.
+---
+
+# 실제 MES 테이블 예
+
+```sql
+product
+-------------------
+product_id
+product_name
+spec
+
+lot
+-------------------
+lot_no
+product_id
+qty
+prod_date
+
+material
+-------------------
+material_id
+material_name
+
+lot_material
+-------------------
+lot_no
+material_id
+qty
+
+equipment
+-------------------
+equipment_id
+equipment_name
+
+lot_equipment
+-------------------
+lot_no
+equipment_id
+
+employee
+-------------------
+emp_id
+emp_name
+
+lot_operator
+-------------------
+lot_no
+emp_id
+
+inspection
+-------------------
+inspect_id
+lot_no
+result
+inspect_date
+```
+
+---
+
+# 실제 추적 예
+
+어느 날
+
+```text
+LOT
+
+RAMEN_20260622
+```
+
+에 문제가 발생하였다.
+
+MES에서는 다음 정보를 모두 확인할 수 있다.
+
+```text
+제품
+
+↓
+
+사용한 원재료
+
+↓
+
+사용 설비
+
+↓
+
+작업자
+
+↓
+
+품질검사 결과
+
+↓
+
+출하된 거래처
+```
+
+이 모든 정보가 하나의 LOT 번호를 중심으로 연결된다.
+
+---
+
+# 실습
+
+## 문제 1
+
+모든 LOT와 재료를 JOIN하여 조회하시오.
+
+---
+
+## 문제 2
+
+RAMEN_20260623의 재료만 조회하시오.
+
+---
+
+## 문제 3
+
+스프를 사용한 LOT를 조회하시오.
+
+---
+
+## 문제 4
+
+각 LOT별 사용한 재료 개수를 계산하시오.
+
+힌트
+
+```sql
+COUNT()
+GROUP BY
+```
 
 ---
 
 # 핵심 정리
 
-* 완제품 LOT만으로는 추적성이 부족하다.
-* 원재료 LOT를 함께 관리해야 한다.
-* 완제품 LOT와 원재료 LOT는 사용 이력 테이블로 연결한다.
-* JOIN을 이용하여 사용된 원재료를 조회할 수 있다.
-* 반대로 원재료 LOT를 이용하여 영향을 받은 완제품도 찾을 수 있다.
-* 이것이 실제 MES에서 사용하는 LOT 추적 시스템의 기본 구조이다.
+* LOT는 생산 단위를 관리하는 핵심 정보이다.
+* LOT와 원재료를 연결하면 어떤 재료가 사용되었는지 추적할 수 있다.
+* JOIN을 이용하면 LOT별 재료 정보를 쉽게 조회할 수 있다.
+* 실제 MES는 LOT를 중심으로 원재료, 설비, 작업자, 품질검사, 출하 정보를 모두 연결하여 관리한다.
