@@ -1,4 +1,4 @@
-# Part 4. 데이터 수정 및 삭제
+# Part 4. 데이터 수정 및 삭제 
 
 # Chapter 11. DELETE
 
