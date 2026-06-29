@@ -78,7 +78,7 @@ GROUP BY와 거의 항상 같이 사용된다.
 # 실습을 위한 테이블 생성
 
 ```sql
-CREATE TABLE production (
+CREATE TABLE product_1 (
     id INTEGER PRIMARY KEY,
     product_name TEXT,
     worker TEXT,
@@ -92,7 +92,7 @@ CREATE TABLE production (
 # 실습 데이터 입력
 
 ```sql
-INSERT INTO production VALUES
+INSERT INTO product_1 VALUES
 (1,'Motor','Kim',120,'2026-06-20'),
 (2,'Sensor','Lee',80,'2026-06-20'),
 (3,'Motor','Kim',100,'2026-06-21'),
@@ -113,7 +113,7 @@ INSERT INTO production VALUES
 
 ```sql
 SELECT *
-FROM production;
+FROM product_1;
 ```
 
 예상 결과
