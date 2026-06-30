@@ -28,7 +28,64 @@ inspection
 |8|Valve|Park|5|2026-06-25|
 
 ---
+## 실습용 테이블 생성
 
+```sql
+CREATE TABLE inspection (
+    id INTEGER PRIMARY KEY,
+    product_name TEXT NOT NULL,
+    inspector TEXT NOT NULL,
+    defect_qty INTEGER NOT NULL,
+    inspect_date TEXT NOT NULL
+);
+```
+
+---
+
+## 실습 데이터 입력
+
+```sql
+INSERT INTO inspection
+VALUES
+(1, 'Motor',  'Kim',  2, '2026-06-22');
+
+INSERT INTO inspection
+VALUES
+(2, 'Motor',  'Lee',  1, '2026-06-22');
+
+INSERT INTO inspection
+VALUES
+(3, 'Sensor', 'Kim',  4, '2026-06-23');
+
+INSERT INTO inspection
+VALUES
+(4, 'Sensor', 'Park', 3, '2026-06-23');
+
+INSERT INTO inspection
+VALUES
+(5, 'Pump',   'Kim',  0, '2026-06-24');
+
+INSERT INTO inspection
+VALUES
+(6, 'Pump',   'Lee',  2, '2026-06-24');
+
+INSERT INTO inspection
+VALUES
+(7, 'Motor',  'Kim',  1, '2026-06-25');
+
+INSERT INTO inspection
+VALUES
+(8, 'Valve',  'Park', 5, '2026-06-25');
+```
+
+---
+
+## 데이터 확인
+
+```sql
+SELECT *
+FROM inspection;
+```
 # 실습 1. 특정 날짜의 불량 수량
 
 2026-06-23에 검사한 제품별 불량 수량을 구하시오.
