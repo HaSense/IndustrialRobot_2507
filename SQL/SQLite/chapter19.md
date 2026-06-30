@@ -55,7 +55,7 @@ GROUP BY 그룹컬럼;
 ```sql
 SELECT product_name,
        SUM(qty)
-FROM production
+FROM product_1
 GROUP BY product_name;
 ```
 
@@ -134,7 +134,7 @@ FROM product_1;
 ```sql
 SELECT product_name,
        COUNT(*)
-FROM production
+FROM product_1
 GROUP BY product_name;
 ```
 
@@ -156,7 +156,7 @@ GROUP BY product_name;
 ```sql
 SELECT product_name,
        SUM(qty)
-FROM production
+FROM product_1
 GROUP BY product_name;
 ```
 
@@ -178,7 +178,7 @@ GROUP BY product_name;
 ```sql
 SELECT product_name,
        AVG(qty)
-FROM production
+FROM product_1
 GROUP BY product_name;
 ```
 
@@ -191,7 +191,7 @@ GROUP BY product_name;
 ```sql
 SELECT worker,
        SUM(qty)
-FROM production
+FROM product_1
 GROUP BY worker;
 ```
 
@@ -213,7 +213,7 @@ GROUP BY worker;
 ```sql
 SELECT worker,
        AVG(qty)
-FROM production
+FROM product_1
 GROUP BY worker;
 ```
 
@@ -226,7 +226,7 @@ GROUP BY worker;
 ```sql
 SELECT worker,
        MAX(qty)
-FROM production
+FROM product_1
 GROUP BY worker;
 ```
 
@@ -240,7 +240,7 @@ GROUP BY worker;
 SELECT product_name,
        worker,
        SUM(qty)
-FROM production
+FROM product_1
 GROUP BY product_name,
          worker;
 ```
@@ -309,7 +309,7 @@ HAVING 조건;
 ```sql
 SELECT product_name,
        SUM(qty)
-FROM production
+FROM product_1
 GROUP BY product_name
 HAVING SUM(qty) >= 400;
 ```
@@ -330,7 +330,7 @@ HAVING SUM(qty) >= 400;
 ```sql
 SELECT product_name,
        AVG(qty)
-FROM production
+FROM product_1
 GROUP BY product_name
 HAVING AVG(qty) >= 150;
 ```
@@ -344,7 +344,7 @@ HAVING AVG(qty) >= 150;
 ```sql
 SELECT product_name,
        COUNT(*)
-FROM production
+FROM product_1
 GROUP BY product_name
 HAVING COUNT(*) >= 3;
 ```
@@ -358,7 +358,7 @@ HAVING COUNT(*) >= 3;
 ```sql
 SELECT product_name,
        SUM(qty)
-FROM production
+FROM product_1
 WHERE SUM(qty) > 300;
 ```
 
@@ -373,7 +373,7 @@ WHERE SUM(qty) > 300;
 ```sql
 SELECT product_name,
        SUM(qty)
-FROM production
+FROM product_1
 GROUP BY product_name
 HAVING SUM(qty) > 300;
 ```
@@ -387,7 +387,7 @@ HAVING SUM(qty) > 300;
 ```sql
 SELECT product_name,
        SUM(qty) AS total_qty
-FROM production
+FROM product_1
 GROUP BY product_name
 ORDER BY total_qty DESC;
 ```
@@ -399,7 +399,7 @@ ORDER BY total_qty DESC;
 ```sql
 SELECT product_name,
        SUM(qty) AS total_qty
-FROM production
+FROM product_1
 GROUP BY product_name
 HAVING SUM(qty)>=300
 ORDER BY total_qty DESC;
