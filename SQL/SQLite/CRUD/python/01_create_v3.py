@@ -18,19 +18,23 @@ def main():
     );
     """
 
-    # student.db 열기 (없으면 자동 생성)
-    with sqlite3.connect("student.db") as conn:
+    try:
+        # student.db 열기 (없으면 자동 생성)
+        with sqlite3.connect("student.db") as conn:
 
-        # 커서 생성
-        cursor = conn.cursor()
+            # 커서 생성
+            cursor = conn.cursor()
 
-        # SQL 실행
-        cursor.execute(sql)
+            # SQL 실행
+            cursor.execute(sql)
 
-        # 저장
-        conn.commit()
+            # 저장
+            conn.commit()
 
-        print("student 테이블 생성 완료")
+            print("student 테이블 생성 완료")
+
+    except sqlite3.Error as e:
+        print("테이블 생성 실패 :", e)
 
 
 if __name__ == "__main__":
