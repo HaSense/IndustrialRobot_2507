@@ -120,9 +120,9 @@ python3 -m pip --version
 pip 24.x from ...
 ```
 ## pip가 없다면
----bash
+```bash
 sudo apt install python3-pip
----
+```
 
 ---
 
