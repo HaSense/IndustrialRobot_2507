@@ -1,0 +1,21 @@
+[윈도우쪽 규칙 삭제]
+netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0 listenport=80
+
+[새로운 포트포워딩 규칙설정]
+netsh interface portproxy add v4tov4 ^
+listenaddress=0.0.0.0 ^
+listenport=80 ^
+connectaddress=172.27.44.251 ^
+connectport=80
+
+[Streamlit규칙 설정]
+netsh interface portproxy add v4tov4 ^
+listenaddress=0.0.0.0 ^
+listenport=8501 ^
+connectaddress=172.27.44.251 ^
+connectport=8501
+
+[방화벽 열기]
+netsh advfirewall firewall add rule name="WSL Apache 80" dir=in action=allow protocol=TCP localport=80
+
+netsh advfirewall firewall add rule name="WSL Streamlit 8051" dir=in action=allow protocol=TCP localport=8051
