@@ -119,6 +119,10 @@ python3 -m pip --version
 ```text
 pip 24.x from ...
 ```
+## pip가 없다면
+---bash
+sudo apt install python3-pip
+---
 
 ---
 
@@ -181,6 +185,11 @@ py -m venv .venv
 ---
 
 ## macOS / Ubuntu
+가상환경 venv 모듈이 없다면
+```bash
+sudo apt install python3-venv
+```
+가상환경 설치
 
 ```bash
 python3 -m venv .venv
