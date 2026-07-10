@@ -131,21 +131,21 @@ sudo apt install python3-pip
 이번 강의에서는 다음과 같은 폴더를 사용한다.
 
 ```text
-streamlit_course/
+streamlit/
 ```
 
 ## Windows
 
 ```bash
-mkdir streamlit_course
-cd streamlit_course
+mkdir streamlit
+cd streamlit
 ```
 
 ## macOS / Ubuntu
 
 ```bash
-mkdir streamlit_course
-cd streamlit_course
+mkdir streamlit
+cd streamlit
 ```
 
 ---
@@ -161,25 +161,25 @@ cd streamlit_course
 ## Windows
 
 ```bash
-python -m venv .venv
+python -m venv prj1
 ```
 
 또는
 
 ```bash
-py -m venv .venv
+py -m venv prj1
 ```
 
 가상환경 활성화
 
 ```bash
-.venv\Scripts\activate
+./prj1/Scripts/activate
 ```
 
 정상적으로 활성화되면 터미널 앞에 다음과 같이 표시된다.
 
 ```text
-(.venv)
+(prj1)
 ```
 
 ---
