@@ -167,19 +167,19 @@ python -m venv prj1
 또는
 
 ```bash
-py -m venv prj1
+py -m venv [가상환경 이름]
 ```
 
 가상환경 활성화
 
 ```bash
-./prj1/Scripts/activate
+./[가상환경 이름]/Scripts/activate
 ```
 
 정상적으로 활성화되면 터미널 앞에 다음과 같이 표시된다.
 
 ```text
-(prj1)
+(가상환경 이름)
 ```
 
 ---
@@ -192,19 +192,19 @@ sudo apt install python3-venv
 가상환경 설치
 
 ```bash
-python3 -m venv .venv
+python3 -m venv virtual
 ```
 
 가상환경 활성화
 
 ```bash
-source .venv/bin/activate
+source [virtual]/bin/activate
 ```
 
 정상적으로 활성화되면 터미널 앞에 다음과 같이 표시된다.
 
 ```text
-(.venv)
+(virtual)
 ```
 
 ---
@@ -292,7 +292,7 @@ Streamlit 설치가 완료되었습니다.
 앞으로 강의에서 사용할 기본 구조는 다음과 같다.
 
 ```text
-streamlit_course/
+streamlit/
 
 ├── app.py
 ├── pages/
@@ -300,7 +300,7 @@ streamlit_course/
 ├── db/
 ├── images/
 ├── source/
-├── .venv/
+├── [가상환경 폴더]/
 └── requirements.txt
 ```
 
@@ -316,7 +316,7 @@ streamlit_course/
 |db/|SQLite 데이터베이스 파일 저장|
 |images/|실행 화면 캡처 이미지 저장|
 |source/|챕터별 예제 코드 저장|
-|.venv/|Python 가상환경|
+|[가상환경폴더]/|Python 가상환경|
 |requirements.txt|필요한 Python 패키지 목록|
 
 ---
@@ -367,13 +367,13 @@ pip install streamlit
 또는 가상환경이 활성화되어 있는지 확인한다.
 
 ```bash
-.venv\Scripts\activate
+[가상환경 폴더]\Scripts\activate
 ```
 
 또는
 
 ```bash
-source .venv/bin/activate
+source [가상환경 폴더]/bin/activate
 ```
 
 ---
