@@ -161,7 +161,7 @@ cd streamlit
 ## Windows
 
 ```bash
-python -m venv prj1
+python -m venv [가상환경 이름]
 ```
 
 또는
