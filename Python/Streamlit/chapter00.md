@@ -198,7 +198,7 @@ python3 -m venv virtual
 가상환경 활성화
 
 ```bash
-source [virtual]/bin/activate
+source virtual/bin/activate
 ```
 
 정상적으로 활성화되면 터미널 앞에 다음과 같이 표시된다.
