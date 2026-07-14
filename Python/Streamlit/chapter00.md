@@ -207,6 +207,10 @@ source virtual/bin/activate
 (virtual)
 ```
 
+가상환경 종료
+```bash
+deactivate
+```
 ---
 
 # 7. Streamlit 설치
