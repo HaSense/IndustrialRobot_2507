@@ -1,0 +1,21 @@
+class Calculator2 {
+
+    //오버로딩(Overloading) 설명
+    public int plus(int a, int b){
+        return a + b;
+    }
+    public int plus(int a, int b, int c){
+        return a + b + c;
+    }
+    public double plus(double a, double b){
+        return a + b;
+    }
+}
+public class CalculatorTest2 {
+    public static void main(String[] args) {
+        Calculator2 cal2 = new Calculator2();
+        System.out.println(cal2.plus(3, 7));
+        System.out.println(cal2.plus(3, 7, 5));
+        System.out.println(cal2.plus(1.1, 2.2));
+    }
+}
