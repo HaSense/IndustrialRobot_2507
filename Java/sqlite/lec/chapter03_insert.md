@@ -23,6 +23,8 @@ try (Connection con = DriverManager.getConnection(URL);
     ps.setInt(3, 18000);
     int count = ps.executeUpdate();
     System.out.println(count + "권 등록");
+}catch (SQLException e) {
+            System.out.println("연결 실패: " + e.getMessage());
 }
 ```
 
