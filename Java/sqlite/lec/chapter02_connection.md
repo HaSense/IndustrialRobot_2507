@@ -4,12 +4,19 @@
 
 Maven은 Java 프로젝트의 외부 라이브러리를 관리합니다. SQLite JDBC 드라이버를 `pom.xml`에 등록하면 Java가 SQLite 파일에 연결할 수 있습니다.
 
+## maven 다운로드
+wsl의 경우 maven을 사용하려면 maven을 다운로드 받아야 한다. 받는 방법은 다음과 같다
+```bash
+sudo apt update
+sudo apt install maven
+```
+
 ## 2. 설정과 Java 코드
 
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>edu.example</groupId>
+    <groupId>com.example</groupId>
     <artifactId>sqlite-jdbc-study</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
@@ -50,6 +57,8 @@ public class Main {
 ```text
 데이터베이스 연결 성공
 ```
+
+~/.m2 폴더를 보면 pom.xml로 다운로드 받은 모듈 또는 파일들을 볼 수 있다.
 
 ## 4. 실습
 
