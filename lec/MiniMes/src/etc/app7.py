@@ -1,15 +1,14 @@
-# app.py 위치에 두고 실행하면 됩니다.
-
 import streamlit as st
 
-from src import queries
-from src.ui import metric_row, page_title, setup_page, show_database_status, show_dataframe
+from src.ui import setup_page, show_database_status, show_dataframe
 from src.queries import fetch_dataframe
+
 
 setup_page("소개")
 show_database_status()
 
-def item2(id: str = ""):
+
+def item2(item_id: str = ""):
     return fetch_dataframe(
         """
         SELECT *
@@ -18,10 +17,11 @@ def item2(id: str = ""):
            OR item_id = ?
         ORDER BY item_id
         """,
-        (id, id),
+        (item_id, item_id),
     )
 
-def item3(keyword: str = "라면"):
+
+def item3(keyword: str = ""):
     return fetch_dataframe(
         """
         SELECT *
@@ -33,15 +33,18 @@ def item3(keyword: str = "라면"):
         (keyword, f"%{keyword}%"),
     )
 
+
 try:
-    id = st.text_input("id로 검색")
-    df = item2(id ='')
-    st.subheader("조회 결과")
+    item_id = st.text_input("ID로 검색")
+    df = item2(item_id)
+
+    st.subheader("ID 조회 결과")
     show_dataframe(df)
 
     keyword = st.text_input("제품 이름으로 검색")
     df2 = item3(keyword)
-    st.subheader("조회 결과2")
+
+    st.subheader("제품 이름 조회 결과")
     show_dataframe(df2)
 
 except Exception as exc:
