@@ -60,9 +60,9 @@
 
 ```python
 
-products = queries.active\_items\_for\_select("PRODUCT")
+products = queries.active_items_for_select("PRODUCT")
 
-material\_lots = queries.lots\_for\_select("RECEIPT")
+material_lots = queries.lots_for_select("RECEIPT")
 
 ```
 
