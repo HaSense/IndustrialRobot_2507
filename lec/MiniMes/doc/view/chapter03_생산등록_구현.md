@@ -151,17 +151,11 @@ with st.form("production_form"):
 
 
 ```python
-
-selected\_material\_labels = st.multiselect(
-
-&#x20;   "원자재 LOT 선택",
-
-&#x20;   list(material\_options.keys()),
-
-&#x20;   default=list(material\_options.keys())\[:3],
-
+selected_material_labels = st.multiselect(
+    "원자재 LOT 선택",
+    list(material_options.keys()),
+    default=list(material_options.keys())[:3],
 )
-
 ```
 
 
