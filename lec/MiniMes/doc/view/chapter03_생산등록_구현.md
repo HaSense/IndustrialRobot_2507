@@ -98,23 +98,41 @@ if not products or not material\_lots:
 
 ```python
 
-with st.form("production\_form"):
+with st.form("production_form"):
 
-&#x20;   product\_label = st.selectbox("생산할 완제품 품목", list(product\_options.keys()))
+    product_label = st.selectbox(
+        "생산할 완제품 품목",
+        list(product_options.keys())
+    )
 
-&#x20;   production\_date = st.date\_input("생산일자", value=date.today())
+    production_date = st.date_input(
+        "생산일자",
+        value=date.today()
+    )
 
-&#x20;   production\_no = st.text\_input("생산번호", value=f"PRD-{date.today().strftime('%Y%m%d')}-NEW")
+    production_no = st.text_input(
+        "생산번호",
+        value=f"PRD-{date.today().strftime('%Y%m%d')}-NEW"
+    )
 
-&#x20;   output\_lot\_no = st.text\_input("생성할 완제품 LOT 번호", value=f"FG-NEW-{date.today().strftime('%Y%m%d')}-001")
+    output_lot_no = st.text_input(
+        "생성할 완제품 LOT 번호",
+        value=f"FG-NEW-{date.today().strftime('%Y%m%d')}-001"
+    )
 
-&#x20;   qty = st.number\_input("생산수량", min\_value=0.0, value=1000.0, step=100.0)
+    qty = st.number_input(
+        "생산수량",
+        min_value=0.0,
+        value=1000.0,
+        step=100.0
+    )
 
-&#x20;   expire\_date = st.date\_input("완제품 유효기한", value=date.today() + timedelta(days=180))
+    expire_date = st.date_input(
+        "완제품 유효기한",
+        value=date.today() + timedelta(days=180)
+    )
 
-
-
-&#x20;   submitted = st.form\_submit\_button("생산실적 저장")
+    submitted = st.form_submit_button("생산실적 저장")
 
 ```
 
