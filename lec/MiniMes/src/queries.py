@@ -356,6 +356,24 @@ def production_by_item():
     )
 
 
+# def lot_use_counts():
+#     return fetch_dataframe(
+#         """
+#         SELECT
+#             l.lot_no,
+#             i.item_name,
+#             l.lot_type,
+#             COUNT(pm.production_material_id) AS material_use_count
+#         FROM lot AS l
+#         JOIN item AS i
+#             ON l.item_id = i.item_id
+#         LEFT JOIN production_material AS pm
+#             ON l.lot_id = pm.material_lot_id
+#         GROUP BY l.lot_id, l.lot_no, i.item_name, l.lot_type
+#         ORDER BY material_use_count DESC, l.lot_no
+#         """
+#     )
+
 def lot_use_counts():
     return fetch_dataframe(
         """
@@ -364,16 +382,17 @@ def lot_use_counts():
             i.item_name,
             l.lot_type,
             COUNT(pm.production_material_id) AS material_use_count
-        FROM lot AS l
+        FROM production_material AS pm
+        JOIN lot AS l
+            ON pm.material_lot_id = l.lot_id
         JOIN item AS i
             ON l.item_id = i.item_id
-        LEFT JOIN production_material AS pm
-            ON l.lot_id = pm.material_lot_id
+        WHERE l.lot_type = 'RECEIPT'
+          AND i.item_type = 'MATERIAL'
         GROUP BY l.lot_id, l.lot_no, i.item_name, l.lot_type
         ORDER BY material_use_count DESC, l.lot_no
         """
     )
-
 
 def next_id(table_name: str, id_column: str) -> int:
     row = fetch_one(f"SELECT COALESCE(MAX({id_column}), 0) + 1 AS next_id FROM {table_name}")
