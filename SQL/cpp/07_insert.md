@@ -15,7 +15,7 @@ SQLite::Statement insert(
     "INSERT INTO student(name, age, email) VALUES (?, ?, ?)"
 );
 
-insert.bind(1, "김민수");
+insert.bind(1, "홍길동");
 insert.bind(2, 20);
 insert.bind(3, "minsu@example.com");
 int changed = insert.exec();
