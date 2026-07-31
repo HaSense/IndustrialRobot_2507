@@ -21,7 +21,7 @@ insert.bind(3, "minsu@example.com");
 int changed = insert.exec();
 
 std::cout << changed << "행 등록\n";
-std::cout << "새 ID: " << db.getLastInsertRowid() << '\n';
+std::cout << "새 ID: " << db.getLastInsertRowid() << std::endl;
 ```
 
 바인딩 번호는 1부터다. 입력값을 작은따옴표로 감싸 SQL 문자열에 결합하지 않는다.
