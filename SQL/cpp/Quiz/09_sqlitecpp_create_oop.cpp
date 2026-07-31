@@ -1,0 +1,53 @@
+#include <SQLiteCpp/SQLiteCpp.h>
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class DBManager
+{
+private:
+    SQLite::Database db;
+
+public:
+    explicit DBManager(const string& filename)
+        : db(filename, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE)
+    {
+    }
+
+    void createSchema()
+    {
+        db.exec(R"sql(
+            CREATE TABLE IF NOT EXISTS student (
+                id    INTEGER PRIMARY KEY AUTOINCREMENT,
+                name  TEXT NOT NULL,
+                age   INTEGER NOT NULL CHECK (age >= 0),
+                email TEXT UNIQUE
+            );
+        )sql");
+    }
+
+    SQLite::Database& getDatabase()
+    {
+        return db;
+    }
+};
+
+int main()
+{
+    try
+    {
+        DBManager manager("student.db");
+        manager.createSchema();
+
+        cout << "데이터베이스 준비 완료" << endl;
+    }
+    catch (const SQLite::Exception& e)
+    {
+        cerr << "데이터베이스 오류: "
+                  << e.what() << endl;
+        return 1;
+    }
+
+    return 0;
+}
