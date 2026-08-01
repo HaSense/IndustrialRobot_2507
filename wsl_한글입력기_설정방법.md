@@ -175,24 +175,6 @@ fc-cache -fv
 
 ---
 
-# 마무리
-
-위 패키지를 설치하면 다음과 같은 환경에서 한글 표시가 정상적으로 동작합니다.
-
-- WSLg
-- X11
-- Xorg
-- xrdp
-- XFCE Desktop
-- VS Code Remote WSL
-- Firefox
-- Chromium
-- GTK 응용프로그램
-- Qt 응용프로그램
-
-또한 `fcitx5`와 함께 사용할 경우 한글 입력 환경도 안정적으로 구성할 수 있습니다.
-
-
 # WSL(Ubuntu 26.04)에서 한글 입력기 설정하기
 
 WSLg 환경(X11/Wayland 프록시)에서 `gedit` 같은 X 프로그램을 띄울 때 한글 입력이 안 되는 문제를 해결하는 방법입니다. `fcitx5` + `fcitx5-hangul` 조합을 사용합니다.
