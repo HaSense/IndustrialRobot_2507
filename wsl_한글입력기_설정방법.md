@@ -247,3 +247,82 @@ wsl --shutdown
 sudo apt install im-config
 im-config -n fcitx5
 ```
+
+
+
+
+## 부록1 
+# gedit를 이용한 WSLg 초기화 확인
+
+`wsl -d Ubuntu`로 접속한 상태에서 SSH나 RDP 없이 `gedit` 같은 X 프로그램 화면을 바로 띄우는 방법입니다. WSLg가 이미 이 기능을 위해 만들어져 있으므로 별도 설정 없이 되는 경우가 많습니다.
+
+## 기본적으로 되어야 하는 것
+
+Windows Terminal, PowerShell, 또는 cmd에서 아래 명령으로 접속합니다.
+
+```powershell
+wsl -d Ubuntu
+```
+
+그 안에서 아래 명령을 실행합니다.
+
+```bash
+gedit
+```
+
+별도 설정 없이 Windows 바탕화면에 gedit 창이 그대로 뜹니다. 이게 WSLg의 핵심 기능이라 Windows 11 + 최신 WSL이면 기본 활성화되어 있습니다.
+
+## 만약 안 뜬다면 체크할 것들
+
+### 1. WSL 버전 확인
+
+```powershell
+wsl --version
+```
+
+WSLg 지원을 위해선 WSL 커널/버전이 최신이어야 합니다. 오래됐으면 아래 명령으로 업데이트합니다.
+
+```powershell
+wsl --update
+```
+
+### 2. gedit 설치 여부 확인
+
+```bash
+which gedit
+```
+
+없으면 아래 명령으로 설치합니다.
+
+```bash
+sudo apt update
+sudo apt install gedit -y
+```
+
+### 3. DISPLAY 변수 확인
+
+```bash
+echo $DISPLAY
+```
+
+`:0` 같은 값이 보여야 정상입니다. 비어있다면 WSLg가 제대로 초기화되지 않은 것이므로, Windows 쪽에서 아래 명령으로 완전히 종료 후 다시 `wsl -d Ubuntu`로 들어가서 재시도합니다.
+
+```powershell
+wsl --shutdown
+```
+
+### 4. 소켓 확인
+
+```bash
+ls -la /tmp/.X11-unix/
+```
+
+`X0` 파일이 보이면 정상입니다. 안 보이면 WSLg 데몬이 죽은 것이므로 위 `wsl --shutdown` 후 재시작이 가장 확실한 해결책입니다.
+
+### 5. 에러 메시지 확인
+
+`gedit` 실행 시 에러 메시지가 뜬다면 해당 메시지를 기준으로 원인을 좁혀나갑니다.
+
+## 정리
+
+`wsl -d Ubuntu`로 들어가서 `gedit`만 치면 되고, 안 뜨면 대부분 `wsl --update` + `wsl --shutdown` 후 재시작으로 해결됩니다.
