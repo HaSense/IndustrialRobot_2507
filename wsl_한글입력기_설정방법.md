@@ -196,6 +196,9 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 export SDL_IM_MODULE=fcitx
 export GLFW_IM_MODULE=ibus
+
+# WSLg에서는 XWayland 사용
+export XDG_SESSION_TYPE=x11
 ```
 
 X 프로그램(gedit 등)이 이 값을 읽으려면 fcitx5 데몬이 GUI 앱보다 먼저 떠 있어야 합니다.
