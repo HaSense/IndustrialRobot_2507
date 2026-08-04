@@ -18,4 +18,4 @@ connectport=8501
 [방화벽 열기]
 netsh advfirewall firewall add rule name="WSL Apache 80" dir=in action=allow protocol=TCP localport=80
 
-netsh advfirewall firewall add rule name="WSL Streamlit 8051" dir=in action=allow protocol=TCP localport=8051
+netsh advfirewall firewall add rule name="WSL Streamlit 8051" dir=in action=allow protocol=TCP localport=8501
