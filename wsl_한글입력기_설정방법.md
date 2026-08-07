@@ -336,3 +336,249 @@ gedit &
 ## 정리
 
 `wsl -d Ubuntu`로 들어가서 `gedit`만 치면 되고, 안 뜨면 대부분 `wsl --update` + `wsl --shutdown` 후 재시작으로 해결됩니다.
+
+
+# Ubuntu 26.04에서 DBeaver Community Edition 설치 (APT)
+
+## 개요
+
+Ubuntu 26.04에서는 기본 저장소에 `dbeaver-ce` 패키지가 포함되어 있지 않으므로,
+DBeaver에서 제공하는 공식 APT 저장소를 등록한 후 설치해야 한다.
+
+> **권장 방법**
+>
+> - 공식 APT 저장소 사용
+> - `apt upgrade` 시 함께 자동 업데이트 가능
+
+---
+
+# 1. 시스템 업데이트
+
+```bash
+sudo apt update
+sudo apt upgrade -y
+```
+
+---
+
+# 2. 필요한 패키지 설치
+
+```bash
+sudo apt install -y curl gpg ca-certificates
+```
+
+---
+
+# 3. DBeaver GPG Key 등록
+
+Ubuntu 24.04 이후에는 `apt-key`를 사용하지 않는다.
+
+```bash
+curl -fsSL https://dbeaver.io/debs/dbeaver.gpg.key \
+| sudo gpg --dearmor \
+-o /usr/share/keyrings/dbeaver.gpg
+```
+
+---
+
+# 4. APT 저장소 추가
+
+```bash
+echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg] https://dbeaver.io/debs/dbeaver-ce /" \
+| sudo tee /etc/apt/sources.list.d/dbeaver.list
+```
+
+확인
+
+```bash
+cat /etc/apt/sources.list.d/dbeaver.list
+```
+
+출력 예
+
+```text
+deb [signed-by=/usr/share/keyrings/dbeaver.gpg] https://dbeaver.io/debs/dbeaver-ce /
+```
+
+---
+
+# 5. 패키지 목록 갱신
+
+```bash
+sudo apt update
+```
+
+정상이라면 다음과 같은 저장소가 보인다.
+
+```
+https://dbeaver.io/debs/dbeaver-ce
+```
+
+---
+
+# 6. DBeaver 설치
+
+```bash
+sudo apt install -y dbeaver-ce
+```
+
+설치 확인
+
+```bash
+dbeaver --version
+```
+
+또는
+
+```bash
+which dbeaver
+```
+
+---
+
+# 7. 실행
+
+터미널
+
+```bash
+dbeaver
+```
+
+또는
+
+Activities → **DBeaver Community**
+
+---
+
+# 업데이트
+
+APT 저장소를 등록했으므로 일반적인 시스템 업데이트만 수행하면 된다.
+
+```bash
+sudo apt update
+sudo apt upgrade
+```
+
+---
+
+# 제거
+
+프로그램 제거
+
+```bash
+sudo apt remove dbeaver-ce
+```
+
+설정까지 모두 삭제
+
+```bash
+sudo apt purge dbeaver-ce
+```
+
+사용하지 않는 패키지 제거
+
+```bash
+sudo apt autoremove
+```
+
+---
+
+# 저장소 제거
+
+```bash
+sudo rm /etc/apt/sources.list.d/dbeaver.list
+sudo rm /usr/share/keyrings/dbeaver.gpg
+sudo apt update
+```
+
+---
+
+# 설치 확인
+
+```bash
+apt policy dbeaver-ce
+```
+
+예시
+
+```text
+dbeaver-ce:
+  Installed: 25.x.x
+  Candidate: 25.x.x
+```
+
+---
+
+# 문제 해결
+
+## GPG 오류
+
+```
+NO_PUBKEY
+```
+
+다시 Key 등록
+
+```bash
+sudo rm -f /usr/share/keyrings/dbeaver.gpg
+
+curl -fsSL https://dbeaver.io/debs/dbeaver.gpg.key \
+| sudo gpg --dearmor \
+-o /usr/share/keyrings/dbeaver.gpg
+
+sudo apt update
+```
+
+---
+
+## 저장소 오류
+
+기존 저장소 삭제
+
+```bash
+sudo rm /etc/apt/sources.list.d/dbeaver.list
+```
+
+다시 추가
+
+```bash
+echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg] https://dbeaver.io/debs/dbeaver-ce /" \
+| sudo tee /etc/apt/sources.list.d/dbeaver.list
+
+sudo apt update
+```
+
+---
+
+## 설치 여부 확인
+
+```bash
+dpkg -l | grep dbeaver
+```
+
+또는
+
+```bash
+apt list --installed | grep dbeaver
+```
+
+---
+
+# 전체 설치 명령어
+
+```bash
+sudo apt update
+
+sudo apt install -y curl gpg ca-certificates
+
+curl -fsSL https://dbeaver.io/debs/dbeaver.gpg.key \
+| sudo gpg --dearmor \
+-o /usr/share/keyrings/dbeaver.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg] https://dbeaver.io/debs/dbeaver-ce /" \
+| sudo tee /etc/apt/sources.list.d/dbeaver.list
+
+sudo apt update
+
+sudo apt install -y dbeaver-ce
+```
