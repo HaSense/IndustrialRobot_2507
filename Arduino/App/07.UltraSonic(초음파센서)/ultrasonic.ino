@@ -42,7 +42,21 @@ void loop() {
   delayMicroseconds(10);
 
   digitalWrite(pinTrigger, LOW);
+  /*
+  Echo 핀이 HIGH 상태를 유지하는 시간을 측정한다.
 
+  초음파 센서가 Trigger 신호를 받으면 초음파를 발사하고,
+  물체에 반사된 초음파가 돌아오는 시간을 Echo 핀의
+  HIGH 신호 길이로 알려준다.
+
+  pulseIn(pinEcho, HIGH)
+    - pinEcho : 측정할 Echo 핀
+    - HIGH    : HIGH 상태가 얼마나 오래 지속되는지 측정
+    - 반환값  : HIGH가 유지된 시간 (마이크로초, us)
+
+  따라서 fDuration에는 초음파가
+  센서 → 물체 → 센서로 왕복하는 데 걸린 시간이 저장된다.
+*/
   fDuration = pulseIn(pinEcho, HIGH);
 
   Serial.println(fDuration);
