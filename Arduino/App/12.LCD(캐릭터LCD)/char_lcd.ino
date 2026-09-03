@@ -21,7 +21,7 @@ void setup() {
 
   // 첫 번째 줄의 첫 번째 위치로 커서 이동
   lcd.setCursor(0, 0);
-  lcd.print("Hello Arduino LCD Test!");
+  lcd.print("Hello LCD Test!");
 
   // 두 번째 줄의 첫 번째 위치로 커서 이동
   lcd.setCursor(0, 1);
